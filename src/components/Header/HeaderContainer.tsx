@@ -1,0 +1,38 @@
+import React from "react";
+import Header from "./Header";
+import {connect} from "react-redux";
+import {AuthThunkType, logoutThunk, setBurger, SetBurgerActionType} from "../../redux/authReducer";
+import {StateType} from "../../redux/reduxStore";
+
+type MapStatePropsType = {
+    userId: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+}
+
+type MapDispatchPropsType = {
+    logoutThunk: () => void
+    setBurger: () => void
+}
+
+class HeaderContainer extends React.Component<MapStatePropsType & MapDispatchPropsType> {
+    componentDidMount() {
+
+    }
+
+    render() {
+        return <Header {...this.props} />
+    }
+}
+
+let mapStateToProps = (state: StateType) => {
+    return {
+        userId: state.auth.userId,
+        login: state.auth.login,
+        email: state.auth.email,
+        isAuth: state.auth.isAuth,
+    }
+}
+
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>(mapStateToProps, {logoutThunk, setBurger})(HeaderContainer);

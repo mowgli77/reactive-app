@@ -1,0 +1,10 @@
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+}
+
+.img img{
+    width: 200px;
+}

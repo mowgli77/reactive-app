@@ -1,0 +1,30 @@
+.nf {
+    padding-left: 75px;
+}
+
+.notFound1 {
+    font-size: 43px;
+    font-family: Algerian;
+    color: darkred;
+    font-variant: diagonal-fractions;
+    line-height: 0.8;
+}
+.notFoundNumber {
+    padding-left: 260px;
+    font-size: 100px;
+    font-family: Algerian;
+    color: darkred;
+    font-variant: diagonal-fractions;
+    line-height: 0;
+}
+.notFound2 {
+    font-size: 65px;
+    font-family: Algerian;
+    color: darkred;
+    padding-left: 150px;
+    font-variant: diagonal-fractions;
+    line-height: 0.8;
+}
+.notFound404 img {
+    width: 950px;
+}

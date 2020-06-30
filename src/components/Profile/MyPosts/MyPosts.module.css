@@ -1,0 +1,39 @@
+.post {
+    padding: 1rem;
+}
+
+.post textarea {
+    padding: 0.3rem 0.5rem;
+    width: 43.7vw;
+    height: 80px;
+    border-radius: 8px;
+    border: solid darkgrey 1px;
+    background-color: whitesmoke;
+    max-width: 900px;
+}
+.post button {
+    font-weight: bold;
+}
+.imageBurger img {
+    float: left;
+    width: 60px;
+}
+
+@media (max-width: 1200px) {
+    .post textarea {
+        width: 53.5vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .post textarea {
+        width: 53.5vw;
+    }
+}
+
+@media (max-width: 767px) {
+    .post textarea {
+        width: 80vw;
+    }
+}
+

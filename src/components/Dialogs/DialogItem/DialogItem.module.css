@@ -1,0 +1,17 @@
+.di {
+    display: flex;
+    margin: 5px;
+}
+.di img {
+    width: 40px;
+    border-radius: 50%;
+}
+.di a {
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+}
+
+.di a.active {
+    color: gold;
+}

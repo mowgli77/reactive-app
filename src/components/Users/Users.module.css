@@ -1,0 +1,13 @@
+.photo {
+    width: 80px;
+    border-radius: 13px;
+}
+
+.selectedPage {
+    font-weight: bold;
+    font-size: 20pt;
+    cursor: pointer;
+}
+span {
+    cursor: pointer;
+}

@@ -1,0 +1,108 @@
+.dialogs {
+    display: grid;
+    grid-template-rows: 1fr 160px;
+    grid-template-columns: 2fr 8fr;
+    grid-template-areas: "n m" "n t";
+    grid-gap: 10px;
+    min-height: 89vh;
+    max-width: 960px;
+}
+
+.names {
+    grid-area: n;
+    color: saddlebrown;
+    background: dimgrey;
+    font-size: 15pt;
+    padding-top: 15px;
+}
+
+.messages {
+    padding-top: 1.5rem;
+    border: solid darkgrey 1px;
+    border-radius: 5px;
+    grid-area: m;
+    font-size: 1rem;
+    max-height: 62vh;
+    overflow: auto;
+}
+
+.block {
+    display: grid;
+    grid-template-columns: 1fr 13fr 1fr;
+    grid-template-rows: minmax(35px, auto);
+    justify-items: start;
+    align-items: center;
+    padding: 0 2rem;
+}
+.bot {
+    grid-area: t;
+    display: grid;
+    color: coral;
+    justify-items: center;
+    padding-top: 1rem;
+}
+.bot button {
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.messageImg {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: start;
+}
+.messageImg img {
+    width: 30px;
+    border-radius: 50%;
+}
+.message {
+    grid-column: 2;
+    grid-row: 1;
+    border: solid gray 1px;
+    background: whitesmoke;
+    padding: 0 10px 10px 10px;
+    border-radius: 5px;
+    max-width: 43.7vw;
+    color: black;
+    margin-bottom: 0.7rem;
+}
+.deleteButton {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    cursor: pointer;
+    color: darkred;
+}
+i {
+    line-height: inherit;
+}
+i.left {
+    float: left;
+    margin-right: 15px;
+}
+i.right {
+    float: right;
+    margin-left: 15px;
+}
+i.tiny {
+    float: end;
+    font-size: 1rem;
+}
+
+i.small {
+    font-size: 2rem;
+}
+i.medium {
+    font-size: 4rem;
+}
+i.large {
+    font-size: 6rem;
+}
+
+/*.bot textarea {*/
+/*    width: 650px;*/
+/*    height: 60px;*/
+/*    border-radius: 2px;*/
+/*}*/

@@ -1,0 +1,84 @@
+.header {
+    position: fixed;
+    grid-area: header;
+    background: rgba(23, 17, 41, 0.89);
+    width: 1200px;
+    height: 60px;
+}
+
+.image {
+    padding-left: 10px;
+    display: block;
+    width: 65px;
+    background: white;
+    position: absolute;
+}
+
+.image img {
+    float: left;
+    width: 60px;
+}
+
+.imageBurger {
+    transform: scale(0);
+    padding-left: 10px;
+    display: block;
+    width: 65px;
+    background: white;
+    position: absolute;
+}
+
+.imageBurger img {
+    float: left;
+    width: 60px;
+}
+
+@media (max-width: 1200px) {
+    .header {
+        max-width: 970px
+    }
+}
+
+@media (max-width: 992px) {
+    .header {
+        max-width: 750px
+    }
+}
+
+@media (max-width: 767px) {
+    .header {
+        max-width: none;
+        width: 100vw;
+    }
+
+    .image {
+        transform: scale(0);
+    }
+
+    .imageBurger {
+        transform: scale(1);
+    }
+}
+
+.logout {
+    float: right;
+    font-family: "Bookman Old Style";
+    color: white;
+    font-stretch: expanded;
+    font-size: 1.1rem;
+    padding-right: 20px;
+    padding-top: 20px;
+
+}
+
+.logout2 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+}

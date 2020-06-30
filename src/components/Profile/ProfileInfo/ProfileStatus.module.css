@@ -1,0 +1,38 @@
+.status {
+    margin: 8px 0;
+    border: solid darkgrey 1px;
+    border-radius: 8px;
+    padding: 5px;
+    background: whitesmoke;
+    width: 44vw;
+    max-width: 900px;
+}
+
+.status span {
+    font-size: 1.4rem;
+    font-family: "Bookman Old Style";
+    cursor: pointer;
+}
+.status input {
+    width: 43.5vw;
+    height: 35px;
+    border-radius: 8px;
+    border: solid darkgrey 1px;
+}
+@media (max-width: 1200px) {
+    .status {
+        width: 53.5vw;
+    }
+}
+
+@media (max-width: 992px) {
+    .status {
+        width: 53.5vw;
+    }
+}
+
+@media (max-width: 767px) {
+    .status {
+        width: 80vw;
+    }
+}

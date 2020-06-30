@@ -1,0 +1,22 @@
+.ava {
+    padding: 20px;
+}
+.ava img {
+    width: 275px;
+}
+.avatar button {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+.contacts {
+    padding-left: 13px;
+}
+
+.err input {
+    border: solid red 4px;
+}
+.err span {
+    font-size: 25px;
+    color: red;
+}

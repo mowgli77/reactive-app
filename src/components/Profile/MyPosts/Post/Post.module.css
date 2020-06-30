@@ -1,0 +1,99 @@
+.item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 6fr;
+    grid-template-rows: minmax(80px, auto);
+    padding: 1rem;
+    max-width: 45vw;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 0.3rem;
+}
+.img {
+    grid-column: 1;
+    grid-row: 1/3;
+}
+.img img {
+    width: 80px;
+    border-radius: 5px;
+}
+.text {
+    grid-column: 2/4;
+    grid-row: 1;
+    border: darkgrey solid 1px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    padding: 0.3rem 0.5rem;
+}
+.like {
+    grid-column: 2;
+    grid-row: 2;
+}
+.like button {
+    cursor: pointer;
+}
+.delete {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: end;
+    color: darkred;
+    cursor: pointer;
+}
+.delete button {
+    color: darkred;
+    cursor: pointer;
+}
+i {
+    line-height: inherit;
+}
+i.left {
+    float: left;
+    margin-right: 15px;
+}
+i.right {
+    float: right;
+    margin-left: 15px;
+}
+i.tiny {
+    float: end;
+    font-size: 1rem;
+}
+
+i.small {
+    font-size: 2rem;
+}
+i.medium {
+    font-size: 4rem;
+}
+i.large {
+    font-size: 6rem;
+}
+@media (max-width: 1200px) {
+    .item {
+        max-width: 55vw;
+    }
+    .img img {
+        width: 80px;
+        border-radius: 5px;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .item {
+        max-width: 55vw;
+    }
+    .img img {
+        width: 70px;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .item {
+        max-width: 82.5vw;
+    }
+    .img img {
+        width: 60px;
+        border-radius: 5px;
+    }
+}
+

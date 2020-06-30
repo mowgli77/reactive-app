@@ -1,0 +1,38 @@
+.err textarea {
+    padding: 0.3rem 0.5rem;
+    border: solid red 2px;
+    height: 55px;
+    width: 43.7vw;
+    max-width: 750px;
+    border-radius: 8px;
+    background-color: whitesmoke;
+}
+
+.noError textarea {
+    max-width: 750px;
+    padding: 0.3rem 0.5rem;
+    width: 43.7vw;
+    height: 80px;
+    border-radius: 8px;
+    border: solid darkgrey 1px;
+    background-color: whitesmoke;
+}
+
+.err span {
+    font-size: 17px;
+    font-weight: bold;
+    color: red;
+}
+
+.err input {
+    border: solid red 2px;
+}
+
+@media (max-width: 767px) {
+    .err textarea {
+        width: 56vw;
+    }
+    .noError textarea {
+        width: 56vw;
+    }
+}

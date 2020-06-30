@@ -1,0 +1,115 @@
+.nav {
+    grid-area: nav;
+    min-height: 85vh;
+    position: relative;
+}
+
+.menuBox {
+    display: block;
+    block-size: 90vh;
+    background: url("navbar_back.jpg")no-repeat;
+    background-size: contain;
+    position: fixed;
+    padding: 2rem 1rem;
+}
+.menuBoxActive {
+    display: block;
+    block-size: 90vh;
+    background: url("navbar_back.jpg")no-repeat;
+    background-size: contain;
+    position: fixed;
+    padding: 2rem 1rem;
+}
+.item {
+    display: block;
+    position: relative;
+    width: 165px;
+    display: list-item;
+    margin-left: 35pt;
+    line-height: 20pt;
+    max-height: 30pt;
+    font-size: 14pt;
+    font-family: "Bookman Old Style";
+    font-stretch: expanded;
+    list-style-position: outside;
+    list-style-image: url("list_image.png");
+    font-weight: bold;
+}
+.item a {
+    position: absolute;
+    bottom: 8px;
+    color: darkred;
+    text-decoration: none;
+}
+.item a.active {
+    color: darkgreen;
+    font-weight: bold;
+}
+@media (max-width: 1200px) {
+    .menuBoxActive {
+        display: block;
+        block-size: 90vh;
+        background: url("navbar_back.jpg")no-repeat;
+        background-size: contain;
+        position: fixed;
+        padding: 2rem 1rem;
+    }
+    .item {
+        width: 125px;
+    }
+}
+@media (max-width: 992px) {
+    .menuBoxActive {
+        display: block;
+        block-size: 90vh;
+        background: url("navbar_back.jpg")no-repeat;
+        background-size: contain;
+        position: fixed;
+        padding: 2rem 1rem;
+    }
+    .item {
+        width: 89px;
+        display: list-item;
+        margin-left: 24pt;
+        line-height: 15pt;
+        max-height: 20pt;
+        font-size: 10pt;
+        font-family: "Bookman Old Style";
+        font-stretch: expanded;
+        list-style-position: outside;
+        list-style-image: url("list_image.png");
+        font-weight: bold;
+    }
+    .item a {
+        bottom: 1px;
+    }
+}
+@media (max-width: 767px) {
+    .menuBox {
+        transform: scaleX(0);
+    }
+    .menuBoxActive {
+        transform: scaleX(1);
+        background: url("navbar_burger.jpg")no-repeat;
+        background-size: contain;
+        display: block;
+        block-size: 90vh;
+        padding: 2rem 1rem;
+        position: absolute;
+    }
+    .item {
+        display: block;
+        position: relative;
+        width: 185px;
+        display: list-item;
+        margin-left: 35pt;
+        line-height: 20pt;
+        max-height: 30pt;
+        font-size: 14pt;
+        font-family: "Bookman Old Style";
+        font-stretch: expanded;
+        list-style-position: outside;
+        list-style-image: url("list_image.png");
+        font-weight: bold;
+    }
+}

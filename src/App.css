@@ -1,0 +1,73 @@
+.app {
+  display: grid;
+  grid-template-areas: "header header" "nav content";
+  grid-auto-rows: 60px 1fr;
+  grid-auto-columns: 2fr 8fr;
+  grid-gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app h1 {
+  padding-top: 10px;
+  letter-spacing: 15pt;
+  font-family: "Bookman Old Style";
+  font-size: 200%;
+  font-weight: 400;
+  margin: 0% 20% 0% 25%;
+  position: absolute;
+  color: lightsteelblue;
+}
+
+@media (max-width: 1200px) {
+  .app {
+    max-width: 970px
+  }
+  .app textarea {
+    width: 695px;
+  }
+  .app h1 {
+    padding-top: 15px;
+    letter-spacing: 12pt;
+    font-family: "Bookman Old Style";
+    font-size: 170%;
+    font-weight: 400;
+    margin: 0% 18% 0% 22%;
+    position: absolute;
+    color: lightsteelblue;
+  }
+}
+
+@media (max-width: 992px) {
+  .app {
+    max-width: 750px
+  }
+  .app h1 {
+    padding-top: 18px;
+    letter-spacing: 8pt;
+    font-family: "Bookman Old Style";
+    font-size: 150%;
+    font-weight: 400;
+    margin: 0% 24% 0% 20%;
+    position: absolute;
+    color: lightsteelblue;
+  }
+}
+@media (max-width: 767px) {
+  .app {
+    max-width: none
+  }
+  .app_content {
+    width: 100vw;
+  }
+  .app h1 {
+    transform: scale(0);
+  }
+}
+.app_content {
+  grid-area: content;
+  max-width: 960px;
+  background: url("samurai_Back.jpg") fixed;
+  background-size: contain;
+}
+
