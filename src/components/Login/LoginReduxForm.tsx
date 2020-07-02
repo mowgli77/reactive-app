@@ -3,18 +3,13 @@ import React from "react";
 import {fieldComponent, Input} from "../common/formsControl";
 import {notEmail, required} from "../../utilits/validators/validators";
 import s from "../common/formsControl.module.css";
-import {LoginFormValuesType} from "../../redux/authReducer";
+import {LoginFormValuesType} from "../../types/types";
 
 type LoginFormOwnPropsType = {
     captchaURL: string | null
 }
-type FieldControlsNamesType = {
-    email: string
-    password: string
-    rememberMe: string
-    captcha: string
-}
-type LoginFormKeysType = Extract<keyof FieldControlsNamesType, string>
+
+type LoginFormKeysType = Extract<keyof LoginFormValuesType, string>
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = (props) => {
     let pressKey = (e: React.KeyboardEvent) => {
@@ -42,4 +37,4 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
     </form>
 }
 
-export const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm);
+export default reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm);

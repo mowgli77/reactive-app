@@ -1,18 +1,19 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AuthThunkType, LoginFormValuesType, loginThunk} from "../../redux/authReducer";
+import {loginThunk} from "../../redux/authReducer";
 import {compose} from "redux";
 import withRedirectToProfile from "../../HOC/withRedirectComponentToProfile";
-import {LoginReduxForm} from "./LoginReduxForm";
 import {StateType} from "../../redux/reduxStore";
 import s from "./Login.module.css"
+import {LoginFormValuesType} from "../../types/types";
+import LoginReduxForm from "./LoginReduxForm";
 
 
 type MapStatePropsType = {
     captchaURL: string | null
 }
 type MapDispatchPropsType = {
-    loginThunk: (values: LoginFormValuesType) => AuthThunkType
+    loginThunk: (values: LoginFormValuesType) => void
 }
 
 type LoginPropsType = MapStatePropsType & MapDispatchPropsType

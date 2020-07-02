@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {AuthThunkType, logoutThunk, setBurger, SetBurgerActionType} from "../../redux/authReducer";
+import {logoutThunk, reducerActions} from "../../redux/authReducer";
 import {StateType} from "../../redux/reduxStore";
 
 type MapStatePropsType = {
@@ -9,6 +9,7 @@ type MapStatePropsType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    burger: boolean
 }
 
 type MapDispatchPropsType = {
@@ -26,12 +27,15 @@ class HeaderContainer extends React.Component<MapStatePropsType & MapDispatchPro
     }
 }
 
+const setBurger = reducerActions.setBurger;
+
 let mapStateToProps = (state: StateType) => {
     return {
         userId: state.auth.userId,
         login: state.auth.login,
         email: state.auth.email,
         isAuth: state.auth.isAuth,
+        burger: state.auth.burger
     }
 }
 

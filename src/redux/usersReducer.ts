@@ -1,9 +1,10 @@
-import {followAPI, usersAPI} from "../API/api";
 import {objectHelper} from "../utilits/objectHelper";
-import {UsersType} from "../types/types";
+import {ResultCodeEnum, UsersType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {StateType} from "./reduxStore";
+import {InferActionsType, StateType} from "./reduxStore";
 import {Dispatch} from "redux";
+import {usersAPI} from "../API/userAPI";
+import {followAPI} from "../API/followAPI";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -29,11 +30,6 @@ let usersReducer = (state = initialState, action: UsersActionType): InitialState
             return {
                 ...state,
                 users: objectHelper(state.users, 'id', action.id, {followed: true})
-                // users: state.users.map(u => {
-                //  if (u.id === action.id) {
-                //      return { ...u, followed: true}}
-                //      return u}
-                //  )
             }
         case UNFOLLOW:
             return {
@@ -71,95 +67,54 @@ let usersReducer = (state = initialState, action: UsersActionType): InitialState
 }
 
 
-type FollowSuccessActionType = {
-    type: typeof FOLLOW
-    id: number
-}
-
-type UnfollowSuccessActionType = {
-    type: typeof UNFOLLOW
-    id: number
-}
-type SetUsersActionType = {
-    type: typeof SET_USERS
-    users: UsersType[]
-}
-type SetCurrentPageActionType = {
-    type: typeof SET_CURRENT_PAGE
-    currentPage: number
-}
-type SetTotalCountActionType = {
-    type: typeof SET_TOTAL_USERS_COUNT
-    totalUsersCount: number
-}
-type IsFetchingSetActionType = {
-    type: typeof IS_FETCHING
-    isFetching: boolean
-}
-export type ButtonDisableActionType = {
-    type: typeof FOLLOW_PROCESSING
-    followProcessing: boolean
-    userId: number
-}
-export type UsersActionType = FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType |
-    SetCurrentPageActionType | SetTotalCountActionType | IsFetchingSetActionType | ButtonDisableActionType
+export type UsersActionType = InferActionsType<typeof usersActions>
 
 export type UsersThunkTypes = ThunkAction<Promise<void>, StateType, unknown, UsersActionType>
 
-export const followSuccess = (userId: number): FollowSuccessActionType => ({type: FOLLOW, id: userId});
-export const unfollowSuccess = (userId: number): UnfollowSuccessActionType => ({type: UNFOLLOW, id: userId});
-export const setUsers = (users: UsersType[]): SetUsersActionType => ({type: SET_USERS, users});
-export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => ({
-    type: SET_CURRENT_PAGE,
-    currentPage
-});
-export const setTotalCount = (totalUsersCount: number): SetTotalCountActionType => ({
-    type: SET_TOTAL_USERS_COUNT,
-    totalUsersCount
-});
-export const isFetchingSet = (isFetching: boolean): IsFetchingSetActionType => ({type: IS_FETCHING, isFetching});
-export const buttonDisable = (followProcessing: boolean, userId: number): ButtonDisableActionType =>
-    ({type: FOLLOW_PROCESSING, followProcessing, userId});
-
-
-export const requestUsersThunk = (currentPage: number, pageSize: number): UsersThunkTypes => async (dispatch: Dispatch<UsersActionType>) => {
-    dispatch(setCurrentPage(currentPage));
-    dispatch(isFetchingSet(true));
-    let data = await usersAPI.getUsers(currentPage, pageSize);
-    dispatch(setUsers(data.items));
-    dispatch(isFetchingSet(false));
-    dispatch(setTotalCount(data.totalCount));
+export const usersActions = {
+    followSuccess: (userId: number) => ({type: FOLLOW, id: userId} as const),
+    unfollowSuccess: (userId: number) => ({type: UNFOLLOW, id: userId} as const),
+    setUsers: (users: UsersType[]) => ({type: SET_USERS, users} as const),
+    setCurrentPage: (currentPage: number) => ({
+        type: SET_CURRENT_PAGE,
+        currentPage
+    } as const),
+    setTotalCount: (totalUsersCount: number) => ({
+        type: SET_TOTAL_USERS_COUNT,
+        totalUsersCount
+    } as const),
+    isFetchingSet: (isFetching: boolean) => ({type: IS_FETCHING, isFetching} as const),
+    buttonDisable: (followProcessing: boolean, userId: number) =>
+        ({type: FOLLOW_PROCESSING, followProcessing, userId} as const),
 }
 
-const _followUnfollowFlow = async (userId: number, dispatch: Dispatch<UsersActionType>, serverAPI: any, ac: (userId: number) => FollowSuccessActionType | UnfollowSuccessActionType) => {
+export const requestUsersThunk = (currentPage: number, pageSize: number): UsersThunkTypes => async (dispatch: Dispatch<UsersActionType>) => {
+    dispatch(usersActions.setCurrentPage(currentPage));
+    dispatch(usersActions.isFetchingSet(true));
+    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(usersActions.setUsers(data.items));
+    dispatch(usersActions.isFetchingSet(false));
+    dispatch(usersActions.setTotalCount(data.totalCount));
+}
 
-    dispatch(buttonDisable(true, userId));
+const _followUnfollowFlow = async (userId: number, dispatch: Dispatch<UsersActionType>, serverAPI: (userId: number) => Promise<ResultCodeEnum>, ac: (userId: number) => UsersActionType) => {
+
+    dispatch(usersActions.buttonDisable(true, userId));
     let resultCode = await serverAPI(userId);
-    if (resultCode === 0) {
+    if (resultCode === ResultCodeEnum.Succeess) {
         dispatch(ac(userId))
     }
-    dispatch(buttonDisable(false, userId));
+    dispatch(usersActions.buttonDisable(false, userId));
 }
 
 
 export const follow = (userId: number): UsersThunkTypes => async (dispatch) => {
-    _followUnfollowFlow(userId, dispatch, followAPI.getFollow.bind(followAPI), followSuccess)
-//     dispatch(buttonDisable(true, userId));
-//     let resultCode = await followAPI.getFollow(userId);
-//     if (resultCode === 0) {
-//         dispatch(followSuccess(userId))
-//     }
-//     dispatch(buttonDisable(false, userId));
+    _followUnfollowFlow(userId, dispatch, followAPI.getFollow.bind(followAPI), usersActions.followSuccess)
+
 }
 
 export const unfollow = (userId: number): UsersThunkTypes => async (dispatch) => {
-    _followUnfollowFlow(userId, dispatch, followAPI.getUnFollow.bind(followAPI), unfollowSuccess)
-    // dispatch(buttonDisable(true, userId));
-    // let resultCode = await followAPI.getUnFollow(userId);
-    // if (resultCode === 0) {
-    //     dispatch(unfollowSuccess(userId))
-    // }
-    // dispatch(buttonDisable(false, userId));
+    _followUnfollowFlow(userId, dispatch, followAPI.getUnFollow.bind(followAPI), usersActions.unfollowSuccess)
 }
 
 export default usersReducer;

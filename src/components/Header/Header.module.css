@@ -20,17 +20,74 @@
 }
 
 .imageBurger {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background: rgba(23, 17, 41, 0.89);
+    position: relative;
     transform: scale(0);
-    padding-left: 10px;
-    display: block;
-    width: 65px;
-    background: white;
-    position: absolute;
 }
 
-.imageBurger img {
-    float: left;
+.imageBurger span,
+.imageBurger span::before,
+.imageBurger span::after {
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 50%;
+    margin-left: -25px;
+    width: 50px;
+    height: 4px;
+    background-color: whitesmoke;
+}
+.imageBurger span::before,
+.imageBurger span::after {
+    content: '';
+    display: block;
+    transition: 0.5s;
+}
+.imageBurger span::before{
+    transform: translateY(-15px);
+}
+.imageBurger span::after {
+    transform: translateY(15px);
+}
+
+.burgerIsOpen {
+    display: inline-block;
     width: 60px;
+    height: 60px;
+    background: rgba(23, 17, 41, 0.89);
+    position: relative;
+    transform: scale(0);
+}
+
+.burgerIsOpen span,
+.burgerIsOpen span::before,
+.burgerIsOpen span::after {
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 50%;
+    margin-left: -25px;
+    width: 50px;
+    height: 4px;
+    background-color: whitesmoke;
+}
+.burgerIsOpen span::before,
+.burgerIsOpen span::after {
+    content: '';
+    display: block;
+    transition: 0.3s;
+}
+.burgerIsOpen span::before{
+    transform: rotate(45deg);
+}
+.burgerIsOpen span::after {
+    transform: rotate(-45deg);
+}
+.burgerIsOpen span{
+    background-color: rgba(23, 17, 41, 0.89);;
 }
 
 @media (max-width: 1200px) {
@@ -56,6 +113,9 @@
     }
 
     .imageBurger {
+        transform: scale(1);
+    }
+    .burgerIsOpen {
         transform: scale(1);
     }
 }

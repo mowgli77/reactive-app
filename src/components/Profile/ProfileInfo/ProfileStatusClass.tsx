@@ -1,8 +1,13 @@
 import React from "react";
 import s from "./ProfileStatus.module.css"
+import {StateType} from "../../../redux/reduxStore";
 
+type ProfileStatusClassPropsType = {
+    status: string
+    updateStatusThunk: (status: string) => void
+}
 
-class ProfileStatusClass extends React.Component {
+class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType> {
     state = {
         editMode: false,
         status: this.props.status
@@ -20,7 +25,7 @@ class ProfileStatusClass extends React.Component {
         this.props.updateStatusThunk(this.state.status);
     }
 
-    changeText = (e) => {
+    changeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         let text = e.currentTarget.value;
         this.setState({
             status: text
@@ -33,7 +38,7 @@ class ProfileStatusClass extends React.Component {
             status: this.props.status
         })
     }
-    pressKey = (e) => {
+    pressKey = (e: React.KeyboardEvent) => {
         if(e.key === 'Enter') {
             e.preventDefault();
             if (this.state.status.trim().length > 0){
@@ -42,7 +47,7 @@ class ProfileStatusClass extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: ProfileStatusClassPropsType, prevState: StateType) {
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status

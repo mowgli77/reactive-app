@@ -13,3 +13,28 @@
     font-size: 20pt;
     cursor: pointer;
 }
+i {
+    line-height: inherit;
+}
+i.left {
+    float: left;
+    margin-right: 15px;
+}
+i.right {
+    float: right;
+    margin-left: 15px;
+}
+i.tiny {
+    float: end;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+i.small {
+    font-size: 2rem;
+}
+i.medium {
+    font-size: 4rem;
+}
+i.large {
+    font-size: 6rem;
+}

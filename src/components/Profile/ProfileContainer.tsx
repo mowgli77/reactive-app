@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     addAvatarThunk,
     getProfileThunk,
-    getStatusThunk, ProfileThunkType,
+    getStatusThunk,
     updateProfileThunk,
     updateStatusThunk
 } from "../../redux/profileReducer";
@@ -24,11 +24,11 @@ type MapStateProfileContainerPropsType = {
     status: string
 }
 type MapDispatchProfileContainerPropsType = {
-    getProfileThunk: (userId: number) => ProfileThunkType
-    getStatusThunk: (userId: number) => ProfileThunkType
-    updateStatusThunk: (userId: number) => ProfileThunkType
-    addAvatarThunk: (userId: number) => ProfileThunkType
-    updateProfileThunk: (userId: number) => ProfileThunkType
+    getProfileThunk: (userId: number) => void
+    getStatusThunk: (userId: number) => void
+    updateStatusThunk: (status: string) => void
+    addAvatarThunk: (avatarka: File | null) => void
+    updateProfileThunk: (profile: ProfileType) => void
 }
 type ProfileContainerPropsType =
     OwnProfileContainerPropsType
@@ -76,7 +76,7 @@ let mapStateToProps = (state: StateType) => ({
 });
 
 export default compose(
-    connect/*<MapStateProfileContainerPropsType, MapDispatchProfileContainerPropsType, OwnProfileContainerPropsType, StateType>*/
+    connect<MapStateProfileContainerPropsType, MapDispatchProfileContainerPropsType, OwnProfileContainerPropsType, StateType>
     (mapStateToProps, {getProfileThunk, getStatusThunk, updateStatusThunk, addAvatarThunk, updateProfileThunk}),
     withRouter,
     // withRedirect

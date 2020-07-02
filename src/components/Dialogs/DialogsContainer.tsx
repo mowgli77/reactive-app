@@ -1,5 +1,5 @@
 import React from "react";
-import {deleteMessage, DialogsThunkType, getAuthPhotosThunk, onAddMessage} from "../../redux/dialogsReducer";
+import {dialogsActions, getAuthPhotosThunk} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import withRedirect from "../../HOC/withRedirectComponent";
@@ -19,8 +19,11 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     onAddMessage: (message: string) => void
     deleteMessage: (id: number) => void
-    getAuthPhotosThunk: (userId: number) => DialogsThunkType
+    getAuthPhotosThunk: (userId: number) => void
 }
+
+const onAddMessage = dialogsActions.onAddMessage
+const deleteMessage = dialogsActions.deleteMessage
 
 const mapStateToProps = (state: StateType) => {
     return {

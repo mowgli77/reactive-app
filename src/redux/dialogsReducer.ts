@@ -1,8 +1,6 @@
 import {DialogsItemsType, MessagesItemsType, PhotosType} from "../types/types";
-import {profileAPI} from "../API/api";
-import {ProfileThunkType, setUsersProfile} from "./profileReducer";
-import {ThunkAction} from "redux-thunk";
-import {StateType} from "./reduxStore";
+import {BaseThunkType, InferActionsType} from "./reduxStore";
+import {profileAPI} from "../API/profileAPI";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const DELETE_MESSAGE = 'DELETE_MESSAGE';
@@ -50,29 +48,18 @@ const dialogsReducer = (state = initialState, action: DialogsActionsTypes): Init
             return state;
     }
 }
-type OnAddMessageActionType = {
-    type: typeof ADD_MESSAGE
-    message: string
-}
-type DeleteMessageActionType = {
-    type: typeof DELETE_MESSAGE
-    id: number
-}
-type SetAuthPhotosActionType = {
-    type: typeof AUTH_PHOTOS
-    photos: PhotosType
-}
 
-type DialogsActionsTypes = OnAddMessageActionType | DeleteMessageActionType | SetAuthPhotosActionType
-export type DialogsThunkType = ThunkAction<Promise<void>, StateType, unknown, DialogsActionsTypes>
+type DialogsActionsTypes = InferActionsType<typeof dialogsActions>
+type DialogsThunkType = BaseThunkType<DialogsActionsTypes>
 
-export const onAddMessage = (message: string): OnAddMessageActionType => ({type: ADD_MESSAGE, message});
-export const deleteMessage = (id: number): DeleteMessageActionType => ({type: DELETE_MESSAGE, id});
-export const setAuthPhotos = (photos: PhotosType): SetAuthPhotosActionType => ({type: AUTH_PHOTOS, photos});
-
+export const dialogsActions = {
+onAddMessage: (message: string) => ({type: ADD_MESSAGE, message} as const),
+deleteMessage: (id: number) => ({type: DELETE_MESSAGE, id} as const),
+setAuthPhotos: (photos: PhotosType) => ({type: AUTH_PHOTOS, photos} as const)
+}
 export const getAuthPhotosThunk = (userId: number): DialogsThunkType  => async (dispatch) => {
     let data = await profileAPI.getProfile(userId);
-    dispatch(setAuthPhotos(data.photos));
+    dispatch(dialogsActions.setAuthPhotos(data.photos));
 }
 
 export default dialogsReducer;

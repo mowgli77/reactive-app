@@ -1,11 +1,7 @@
 import React from "react";
 import Users from "./Users";
 import {connect} from "react-redux";
-import {
-    buttonDisable, ButtonDisableActionType,
-    follow, requestUsersThunk,
-    unfollow, UsersThunkTypes
-} from "../../redux/usersReducer";
+import {follow, requestUsersThunk, unfollow, usersActions} from "../../redux/usersReducer";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -28,10 +24,10 @@ type MapStateUsersContainerPropsType = {
     followProcessing: number[]
 }
 type MapDispatchUsersContainerPropsType = {
-    follow: (userId: number) => UsersThunkTypes
-    unfollow: (userId: number) => UsersThunkTypes
-    buttonDisable: (followProcessing: boolean, userId: number) => ButtonDisableActionType
-    requestUsersThunk: (currentPage: number, pageSize: number) => UsersThunkTypes
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    buttonDisable: (followProcessing: boolean, userId: number) => void
+    requestUsersThunk: (currentPage: number, pageSize: number) => void
 }
 type UserContainerPropsType = MapStateUsersContainerPropsType & MapDispatchUsersContainerPropsType
 
@@ -73,6 +69,7 @@ const mapStateToProps = (state: StateType) => {
         followProcessing: getFollowProcessing(state),
     }
 }
+const buttonDisable = usersActions.buttonDisable
 
 export default compose(
     connect<MapStateUsersContainerPropsType, MapDispatchUsersContainerPropsType, {}, StateType>
@@ -82,5 +79,4 @@ export default compose(
         buttonDisable,
         requestUsersThunk,
     })
-//@ts-ignore
 )(UsersComponentContainer)

@@ -24,13 +24,16 @@ export const Pagination: React.FC<PropsType> = React.memo(({portionSize, ...prop
 
     return <div className={s.pagination}>
             {portionNumber > 1 &&
-                <button onClick={() => setPortionNumber(portionNumber - 1)}>PREVIOUS</button>}
+                <button onClick={() => setPortionNumber(portionNumber - 1)}>
+                    <i className={`${s.tiny} material-icons`}>fast_rewind</i></button>}
             {pages.filter(p => rightBorder >= p && p >= leftBorder).map(p => {
                 return <span className={props.currentPage === p ? s.selectedPage : undefined}
                              onClick={() => props.onChangedPage(p)}><button>{p}</button></span>
             })
             }
             {portionsCount > portionNumber &&
-                <button onClick={() => setPortionNumber(portionNumber + 1)}>NEXT</button>}
+                <button onClick={() => setPortionNumber(portionNumber + 1)}>
+                    <i className={`${s.tiny} material-icons`}>fast_forward</i>
+                </button>}
     </div>
 })

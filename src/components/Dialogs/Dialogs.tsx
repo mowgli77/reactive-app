@@ -4,7 +4,6 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {AddMessageForm} from "./Message/AddMessageForm";
 import {DialogsItemsType, MessagesItemsType, PhotosType} from "../../types/types";
-import {DialogsThunkType} from "../../redux/dialogsReducer";
 import {FormState} from "redux-form";
 
 type DialogsPropsType = {
@@ -13,7 +12,7 @@ type DialogsPropsType = {
     onAddMessage: (message: string) => void
     dialog: DialogsFormState
     deleteMessage: (id: number) => void
-    getAuthPhotosThunk: (userId: number) => DialogsThunkType
+    getAuthPhotosThunk: (userId: number) => void
     userId: number
     photos: PhotosType
 }

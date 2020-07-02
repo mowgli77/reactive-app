@@ -1,5 +1,4 @@
 //Reducers Types
-import {ProfileThunkType} from "../redux/profileReducer";
 
 export type PostsType = {
     id: number
@@ -7,8 +6,8 @@ export type PostsType = {
     likesCount: number
 }
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: string | undefined
+    large: string | undefined
 }
 export type ProfileType = {
     fullName: string | null
@@ -21,13 +20,13 @@ export type ProfileType = {
     photos: PhotosType
     userId: number
 }
+
 export type UsersType = {
     name: string
     id: number
     photos: PhotosType
     status: string | null
     followed: boolean
-    // uniqueUrlName: string | null
 }
 export type DialogsItemsType = {
     id: number
@@ -52,21 +51,27 @@ export enum ResultCodeEnum {
 export enum ResultCodeCaptchaEnum {
     Captcha = 10
 }
-export type ResultCodeEnumAPIType = {
-    resultCode: ResultCodeEnum
-}
-export type AuthMeAPIType = {
-    data: {
-        id: number | null
-        email: string | null
-        login: string | null
-    }
-    resultCode: ResultCodeEnum | ResultCodeCaptchaEnum
+export type APIResponseType<D = {}, R = ResultCodeEnum> = {
+    data: D
+    resultCode: R
     messages: string[]
 }
+export type AuthMeDataType = {
+    id: number | null
+    email: string | null
+    login: string | null
+}
+export type LoginDataType = {
+    userId: number
+}
+export type SecurityCaptchaType = {
+    url: string
+}
+export type DataPhotosType = {
+    photos: PhotosType
+}
 
-//C Component's Types:
-
+// Component's Types:
 export type PostPropsType = {
     addLikesCount: (id: number) => void
     message: string
@@ -84,7 +89,13 @@ export type MyPostsPropsType = {
 export type ProfilePropsType = {
     profile: ProfileType | null
     status: string
-    updateStatusThunk: (userId: number) => ProfileThunkType
-    addAvatarThunk: (userId: number) => ProfileThunkType
-    updateProfileThunk: (userId: number) => ProfileThunkType
+    updateStatusThunk: (status: string) => void
+    addAvatarThunk: (avatarka: File | null) => void
+    updateProfileThunk: (profile: ProfileType) => void
+}
+export type LoginFormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
 }

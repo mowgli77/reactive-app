@@ -14,7 +14,7 @@ const ProfileUsersInfo = ({profile, startEditMode}) => {
             <b>About me: </b>{profile.aboutMe}
         </div>
         <div>
-            <b>LookingForAJob: </b>{profile.lookingForAJob ? '+' : '-'}
+            <b>LookingForAJob: </b>{profile.lookingForAJob ? 'Yes' : 'No'}
         </div>
         <div>
             <b>My working skills: </b>{profile.lookingForAJobDescription}
@@ -29,7 +29,7 @@ const ProfileUsersInfo = ({profile, startEditMode}) => {
 
 const Contacts = ({contactTitle, contactName}) => {
     return <div>
-        <b>{contactTitle}: </b><a href={contactName}>{contactName}</a>
+        <b>{contactTitle}: </b><a href={contactName} target={"_blank"}>{contactName}</a>
     </div>
 }
 

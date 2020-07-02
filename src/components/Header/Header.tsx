@@ -1,15 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import samuraiLogo from "./samuraiLogo.jpg"
-import burger_type from "./burger_type.jpg"
-import {AuthThunkType, SetBurgerActionType} from "../../redux/authReducer";
 
 type PropsType = {
     isAuth: boolean
     login: string | null
     logoutThunk: () => void
     setBurger: () => void
+    burger: boolean
 }
 
 
@@ -17,11 +16,13 @@ const Header: React.FC<PropsType> = (props) => {
 
     return (
         <header className={s.header}>
-            <div className={s.block}>
+            <div>
                 <h1>SAMURAI NETWORK</h1>
                 <span className={s.image}><img src={samuraiLogo}/></span>
-                <span className={s.imageBurger}
-                onClick={props.setBurger}><img src={burger_type}/></span>
+                <a href={'#'} className={props.burger ? s.burgerIsOpen : s.imageBurger}
+                onClick={props.setBurger}>
+                    <span></span>
+                </a>
                 <div className={s.logout}>
                     {props.isAuth ? <div>{props.login}
                             &nbsp;

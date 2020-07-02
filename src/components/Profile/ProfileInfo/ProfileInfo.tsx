@@ -5,19 +5,26 @@ import defaultPhoto from "../../Users/defaultPhoto.jpg";
 import ProfileStatusClass from "./ProfileStatusClass";
 import ProfileUsersInfo from "./ProfileUsersInfo";
 import ProfileUsersForm from "./ProfileUsersForm";
+import {ProfileType} from "../../../types/types";
 
+type ProfileInfoPropsType = {
+    profile: ProfileType | null
+    status: string
+    updateStatusThunk: (status: string) => void
+    addAvatarThunk: (avatarka: File | null) => void
+    updateProfileThunk: (profile: ProfileType) => void
+}
 
-
-const ProfileInfo = ({profile, ...props}) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, ...props}) => {
 
     let [changeAvatar, setChangeAvatar] = useState(false);
-    let [newPhoto, setIsSave] = useState(null);
+    let [newPhoto, setIsSave] = useState<File | null>(null);
     let [editMode, setEditMode] = useState(false);
 
     if (!profile) {
         return <Preloader/>
     }
-    let goSetIsSave = (e) => {
+    let goSetIsSave = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             setIsSave(e.target.files[0]);
             props.addAvatarThunk(e.target.files[0]);
@@ -40,25 +47,22 @@ const ProfileInfo = ({profile, ...props}) => {
     let endEditMode = () => {
         setEditMode(false);
     }
-    let updateProfileInfo = (values) => {
+    let updateProfileInfo = (values: ProfileType) => {
+        //@ts-ignore
         props.updateProfileThunk(values).then( () => {
             setEditMode(false)})
     }
 
     return (
         <div className={s.content}>
-            {/*<div>*/}
-            {/*    <img*/}
-            {/*        src={'https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2017/12/5a307779aad6f_5a307767efee1_337860917.jpg'}/>*/}
-            {/*</div>*/}
             <div className={s.ava}>
                 <div className={s.avatar}>
                     {!changeAvatar ? <button onClick={inputAppear} title={'Click on avatar to change it'}>
                             <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/>
                         </button>
-                        : /*<button onClick={inputHide}>*/
-                        <img src={/*newPhoto ? newPhoto : */ profile.photos.large}/>
-                        /*</button>*/}
+                        :
+                        <img src={profile.photos.large}/>
+                     }
                     {changeAvatar && <div>
                         <input type={'file'} onChange={goSetIsSave} autoFocus={true}/>
                     </div>}
