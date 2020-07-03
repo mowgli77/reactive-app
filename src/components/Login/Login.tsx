@@ -35,7 +35,7 @@ let mapStateToProps = (state: StateType) => ({
     captchaURL: state.auth.captchaURL
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>(mapStateToProps, {loginThunk}),
     withRedirectToProfile
 )(Login);

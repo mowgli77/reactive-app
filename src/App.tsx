@@ -9,28 +9,32 @@ import {initalizedThunk} from "./redux/appReducer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import Preloader from "./components/Preloader/Preloader";
-import withSuspense, {withSuspenseDialogs} from "./HOC/withSuspense";
+import withSuspense from "./HOC/withSuspense";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import NotFound from "./components/SystemComponents/NotFound";
+import {StateType} from "./redux/reduxStore";
 
 const Login = React.lazy(() => import("./components/Login/Login"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"));
 
+const SuspendedLogin = withSuspense(Login)
+const SuspendedDialogsContainer = withSuspense(DialogsContainer)
+const SuspendedUsersContainer = withSuspense(UsersContainer)
 
-class App extends React.Component {
+class App extends React.Component<AppPropsType> {
 
-    catchErrors = (PromiseRejectionEvent) => {
-        alert(PromiseRejectionEvent.reason)
+    catchErrors = (e: PromiseRejectionEvent) => {
+        alert(e.reason)
     }
 
     componentDidMount() {
         this.props.initalizedThunk();
-        window.addEventListener('unhandledrejection', this.catchErrors);
+        window.addEventListener('unhandledrejection', this.catchErrors)
     }
 
     componentWillUnmount() {
-        window.removeEventListener('unhandledrejection', this.catchErrors);
+        window.removeEventListener('unhandledrejection', this.catchErrors)
     }
 
     render() {
@@ -49,14 +53,20 @@ class App extends React.Component {
                                render={() => <Redirect to={'/profile'}/>}/>
                         <Route path={'/profile/:userId?'}
                                render={() => <ProfileContainer/>}/>
-                        <Route /*exact*/ path={'/dialogs'}
-                                         render={withSuspenseDialogs}/>
-                        <Route path={'/news'} render={() => <News/>}/>
-                        <Route path={'/music'} render={() => <Music/>}/>
-                        <Route path={'/settings'} render={() => <Settings/>}/>
-                        <Route path={'/users'} render={withSuspense(UsersContainer)}/>
-                        <Route path={'/login'} render={withSuspense(Login)}/>
-                        <Route path={'*'} render={() => <NotFound/>}/>
+                        <Route path={'/dialogs'}
+                               render={() => <SuspendedDialogsContainer />}/>
+                        <Route path={'/news'}
+                               render={() => <News/>}/>
+                        <Route path={'/music'}
+                               render={() => <Music/>}/>
+                        <Route path={'/settings'}
+                               render={() => <Settings/>}/>
+                        <Route path={'/users'}
+                               render={() => <SuspendedUsersContainer />}/>
+                        <Route path={'/login'}
+                               render={() => <SuspendedLogin />}/>
+                        <Route path={'*'}
+                               render={() => <NotFound/>}/>
                     </Switch>
                 </div>
             </div>
@@ -64,7 +74,11 @@ class App extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: StateType) => ({
     initialized: state.app.initialized
 })
+type AppPropsType = ReturnType<typeof mapStateToProps> & {
+    initalizedThunk: () => void
+}
+
 export default connect(mapStateToProps, {initalizedThunk})(App);

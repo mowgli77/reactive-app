@@ -14,9 +14,74 @@ import {compose} from "redux";
 import {ProfileType} from "../../types/types";
 import {StateType} from "../../redux/reduxStore";
 
+
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
+    state = {
+        isOwnerLocal: false
+    }
+
+    profileRefresher() {
+        let userId = this.props.match.params.userId ? +this.props.match.params.userId : null;
+        if (!userId) {
+            userId = this.props.authUserId
+            if (!userId) {
+                this.props.history.push('/login');
+            }
+        }
+        if (userId) {
+            this.props.getProfileThunk(userId);
+            this.props.getStatusThunk(userId);
+            this.setState({isOwnerLocal: this.isOwnerMethod()})
+        }
+    }
+    isOwnerMethod(){
+        if (!this.props.match.params.userId){
+            return true;
+        } else if (+this.props.match.params.userId == this.props.authUserId){
+            return true
+        } else {
+            return false
+        }
+    }
+    componentDidMount() {
+        this.profileRefresher()
+    }
+
+    componentDidUpdate(prevProps: ProfileContainerPropsType, prevState: StateType) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId)
+            this.profileRefresher();
+    }
+
+
+    render() {
+        return <Profile {...this.props}
+                        profile={this.props.profile}
+                        updateStatusThunk={this.props.updateStatusThunk}
+                        status={this.props.status}
+                        addAvatarThunk={this.props.addAvatarThunk}
+                        updateProfileThunk={this.props.updateProfileThunk}
+                        isOwner={this.state.isOwnerLocal}
+
+        />
+    }
+}
+
+let mapStateToProps = (state: StateType) => ({
+    profile: state.profilePage.profile,
+    status: state.profilePage.status,
+    authUserId: state.auth.userId
+});
+
+export default compose<React.ComponentType>(
+    connect<MapStateProfileContainerPropsType, MapDispatchProfileContainerPropsType, OwnProfileContainerPropsType, StateType>
+    (mapStateToProps, {getProfileThunk, getStatusThunk, updateStatusThunk, addAvatarThunk, updateProfileThunk}),
+    withRouter,
+    withRedirect
+)(ProfileContainer);
+
 type OwnProfileContainerPropsType = {
     history: string[]
-    match: { params: { userId: number | null } }
+    match: { params: { userId: string | undefined} }
 }
 type MapStateProfileContainerPropsType = {
     authUserId: number | null
@@ -34,50 +99,3 @@ type ProfileContainerPropsType =
     OwnProfileContainerPropsType
     & MapStateProfileContainerPropsType
     & MapDispatchProfileContainerPropsType
-
-class ProfileContainer extends React.Component<ProfileContainerPropsType> {
-
-    profileRefresher() {
-        let userId = this.props.match.params.userId;
-        if (!userId) {
-            userId = this.props.authUserId
-            if (!userId) {
-                this.props.history.push('/login');
-            }
-        }
-        if (userId) {
-            this.props.getProfileThunk(userId);
-            this.props.getStatusThunk(userId);
-        }
-    }
-
-    componentDidMount() {
-        this.profileRefresher();
-
-    }
-
-    componentDidUpdate(prevProps: ProfileContainerPropsType, prevState: StateType) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId)
-            this.profileRefresher();
-    }
-
-
-    render() {
-        return <Profile {...this.props} profile={this.props.profile} updateStatusThunk={this.props.updateStatusThunk}
-                        status={this.props.status} addAvatarThunk={this.props.addAvatarThunk}
-                        updateProfileThunk={this.props.updateProfileThunk}/>
-    }
-}
-
-let mapStateToProps = (state: StateType) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authUserId: state.auth.userId
-});
-
-export default compose(
-    connect<MapStateProfileContainerPropsType, MapDispatchProfileContainerPropsType, OwnProfileContainerPropsType, StateType>
-    (mapStateToProps, {getProfileThunk, getStatusThunk, updateStatusThunk, addAvatarThunk, updateProfileThunk}),
-    withRouter,
-    // withRedirect
-)(ProfileContainer);

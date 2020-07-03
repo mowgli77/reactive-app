@@ -1,11 +1,11 @@
-import {maxTextLength, notEmail, required} from "../../../utilits/validators/validators";
+import {maxTextLength, required} from "../../../utilits/validators/validators";
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {fieldComponent, Input, Textarea} from "../../common/formsControl";
+import {fieldComponent, GetStringKeys, Textarea} from "../../common/formsControl";
 import React from "react";
 import {DialogsFormValuesType} from "../Dialogs";
 
 const maxLength100 = maxTextLength(100);
-type AddMessageFormKeysType = Extract<keyof DialogsFormValuesType, string>
+type AddMessageFormKeysType = GetStringKeys<DialogsFormValuesType>
 
 const DialogArea: React.FC<InjectedFormProps<DialogsFormValuesType>> = (props) => {
 
@@ -22,7 +22,7 @@ const DialogArea: React.FC<InjectedFormProps<DialogsFormValuesType>> = (props) =
             {fieldComponent<AddMessageFormKeysType>(Textarea,'message', 'Add Your message...', [required, maxLength100], undefined, undefined)}
         </div>
         <div>
-            <button>Add message</button>
+            <button onKeyPress={pressKey}>Add message</button>
         </div>
     </form>
 }

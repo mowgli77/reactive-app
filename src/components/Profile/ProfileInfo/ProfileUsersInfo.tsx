@@ -1,11 +1,17 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
+import {ContactsType, ProfileType} from "../../../types/types";
 
-const ProfileUsersInfo = ({profile, startEditMode}) => {
+type ProfileUsersInfoPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    startEditMode: () => void
+}
+const ProfileUsersInfo: React.FC<ProfileUsersInfoPropsType> = ({profile, startEditMode, isOwner}) => {
 
     return  <div>
         <div className={s.info}>
-            <button onClick={startEditMode}>Edit profile info</button>
+            {isOwner ? <button onClick={startEditMode}>Edit profile info</button> : undefined}
         </div>
         <div>
             <b>{profile.fullName}</b>
@@ -21,13 +27,17 @@ const ProfileUsersInfo = ({profile, startEditMode}) => {
         </div>
         <div className={s.contacts}>
             {Object.keys(profile.contacts).map(key => {
-                return <Contacts key={key} contactTitle={key} contactName={profile.contacts[key]}/>
+                return <Contacts key={key} contactTitle={key} contactName={profile.contacts[key as keyof ContactsType]}/>
             })}
         </div>
     </div>
 }
 
-const Contacts = ({contactTitle, contactName}) => {
+type ContactsPropsType = {
+    contactTitle: string
+    contactName: string | undefined
+}
+const Contacts: React.FC<ContactsPropsType> = ({contactTitle, contactName}) => {
     return <div>
         <b>{contactTitle}: </b><a href={contactName} target={"_blank"}>{contactName}</a>
     </div>

@@ -34,13 +34,15 @@ export const Input: React.FC<FieldsPropsType> = ({input, label, meta: {touched, 
     </div>
 }
 
-export function fieldComponent<T extends string> (component: React.FC<FieldsPropsType>,
-                               name: T,
-                               label: string | undefined,
-                               validate: ValidatorsType[],
-                               type: string | undefined,
-                               text: string | undefined) {
+export function fieldComponent<T extends string>(component: React.FC<FieldsPropsType>,
+                                                 name: T,
+                                                 label: string | undefined,
+                                                 validate: ValidatorsType[],
+                                                 type: string | undefined,
+                                                 text: string | undefined) {
     return (<div>
-        <Field component={component} text={text} name={name} label={label} validate={validate} type={type} />
+        <Field component={component} text={text} name={name} label={label} validate={validate} type={type}/>
     </div>)
 }
+
+export type GetStringKeys<T> = Extract<keyof T, string>

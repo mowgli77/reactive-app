@@ -1,21 +1,28 @@
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
-import {Textarea} from "../../common/formsControl";
+import {fieldComponent, GetStringKeys, Textarea} from "../../common/formsControl";
 import {maxTextLength, required} from "../../../utilits/validators/validators";
-import {MyPosysFormValuesType} from "./MyPosts";
+import {MyPostsFormValuesType} from "./MyPosts";
 
 const maxLength300 = maxTextLength(300);
+type PostFormKeysType = GetStringKeys<MyPostsFormValuesType>
 
-
-const NewPostComponent: React.FC<InjectedFormProps<MyPosysFormValuesType>> = (props) => {
+const NewPostComponent: React.FC<InjectedFormProps<MyPostsFormValuesType>> = (props) => {
+    let pressKey = (e: React.KeyboardEvent) => {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            //@ts-ignore
+            props.handleSubmit()
+        }
+    }
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field name={'newPostText'} component={Textarea} label={'Add your post...'} validate={[required, maxLength300]}/>
+            {fieldComponent<PostFormKeysType>(Textarea,'newPostText', 'Add your post...', [required, maxLength300], undefined, undefined)}
         </div>
         <div>
-            <button>Add Post</button>
+            <button onKeyPress={pressKey}>Add Post</button>
         </div>
     </form>
 }
 
-export const NewPostForm = reduxForm<MyPosysFormValuesType>({form: 'newPost'})(NewPostComponent);
+export const NewPostForm = reduxForm<MyPostsFormValuesType>({form: 'newPost'})(NewPostComponent);

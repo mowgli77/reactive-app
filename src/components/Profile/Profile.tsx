@@ -8,8 +8,13 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
 
     return (
         <div className={profile.content}>
-                <ProfileInfo addAvatarThunk={props.addAvatarThunk} profile={props.profile} updateStatusThunk={props.updateStatusThunk}
-                             updateProfileThunk={props.updateProfileThunk} status={props.status}/>
+                <ProfileInfo addAvatarThunk={props.addAvatarThunk}
+                             profile={props.profile}
+                             updateStatusThunk={props.updateStatusThunk}
+                             updateProfileThunk={props.updateProfileThunk}
+                             status={props.status}
+                             isOwner={props.isOwner}
+                            />
             <div>
                 <MyPostsContainer />
             </div>

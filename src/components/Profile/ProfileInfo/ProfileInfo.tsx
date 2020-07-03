@@ -2,20 +2,13 @@ import s from './ProfileInfo.module.css';
 import React, {useState} from "react";
 import Preloader from "../../Preloader/Preloader";
 import defaultPhoto from "../../Users/defaultPhoto.jpg";
-import ProfileStatusClass from "./ProfileStatusClass";
+import ProfileStatus  from "./ProfileStatusHook";
 import ProfileUsersInfo from "./ProfileUsersInfo";
 import ProfileUsersForm from "./ProfileUsersForm";
-import {ProfileType} from "../../../types/types";
+import {ProfilePropsType, ProfileType} from "../../../types/types";
 
-type ProfileInfoPropsType = {
-    profile: ProfileType | null
-    status: string
-    updateStatusThunk: (status: string) => void
-    addAvatarThunk: (avatarka: File | null) => void
-    updateProfileThunk: (profile: ProfileType) => void
-}
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, ...props}) => {
+const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
 
     let [changeAvatar, setChangeAvatar] = useState(false);
     let [newPhoto, setIsSave] = useState<File | null>(null);
@@ -25,7 +18,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, ...props}) => {
         return <Preloader/>
     }
     let goSetIsSave = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
+        if (e.target.files?.length) {
             setIsSave(e.target.files[0]);
             props.addAvatarThunk(e.target.files[0]);
         }
@@ -57,7 +50,8 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, ...props}) => {
         <div className={s.content}>
             <div className={s.ava}>
                 <div className={s.avatar}>
-                    {!changeAvatar ? <button onClick={inputAppear} title={'Click on avatar to change it'}>
+                    {!props.isOwner ? <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/> :
+                        !changeAvatar ? <button onClick={inputAppear} title={'Click on avatar to change it'}>
                             <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/>
                         </button>
                         :
@@ -66,20 +60,20 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, ...props}) => {
                     {changeAvatar && <div>
                         <input type={'file'} onChange={goSetIsSave} autoFocus={true}/>
                     </div>}
-                    <div>
+                    {props.isOwner && <div>
                         {!changeAvatar ? <button onClick={inputAppear}>Change avatar</button> :
                             <div>
                                 <button onClick={inputHide}>End changing</button>
                                 <button onClick={addingNewAvatar} disabled={!newPhoto}>Save new avatar</button>
                             </div>}
-                    </div>
+                    </div>}
                     <div>
-                        <ProfileStatusClass updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                        <ProfileStatus updateStatusThunk={props.updateStatusThunk} status={props.status}/>
                     </div>
                     {!editMode ?
-                        <ProfileUsersInfo profile={profile} startEditMode={startEditMode}/>
+                        <ProfileUsersInfo profile={profile} startEditMode={startEditMode} isOwner={props.isOwner} />
                         :
-                        <ProfileUsersForm profile={profile} initialValues={profile} onSubmit={updateProfileInfo} endEditMode={endEditMode}/>
+                        <ProfileUsersForm profile={profile} initialValues={profile} onSubmit={updateProfileInfo} endEditMode={endEditMode} />
                     }
                 </div>
             </div>

@@ -66,7 +66,7 @@ class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType> {
                 <input onKeyPress={this.pressKey} onChange={this.changeText} autoFocus={true} value={this.state.status}/>
                 <div>
                     <button onClick={this.offEditStatus}>Add status</button>
-                    <button onClick={this.offChanging}>Don`t change status</button>
+                    <button onClick={this.offChanging}>Don`t change</button>
                 </div>
             </div>}
         </div>

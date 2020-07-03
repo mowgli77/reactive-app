@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {NewPostForm} from "./NewPostForm";
 import {MyPostsPropsType} from "../../../types/types";
 
-export type MyPosysFormValuesType = {
+export type MyPostsFormValuesType = {
     newPostText: string
 }
 
@@ -14,7 +14,7 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
             .reverse()
             .map(p => <Post addLikesCount={props.addLikesCount} deletePost={props.deletePost} message={p.message} likesCount={p.likesCount} id={p.id} key={p.id}/>);
 
-    let addPost = (values: MyPosysFormValuesType) => {
+    let addPost = (values: MyPostsFormValuesType) => {
         props.onAddPost(values.newPostText);
         props.newPost.values.newPostText = ''
     }

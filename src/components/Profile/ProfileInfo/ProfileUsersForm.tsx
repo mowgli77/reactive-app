@@ -1,24 +1,16 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
 import {InjectedFormProps, reduxForm} from "redux-form";
-import {fieldComponent, Input} from "../../common/formsControl";
-import {notEmail, required} from "../../../utilits/validators/validators";
+import {fieldComponent, GetStringKeys, Input} from "../../common/formsControl";
+import {required} from "../../../utilits/validators/validators";
 import {ProfileType} from "../../../types/types";
 
 type ProfileUsersFormPropsType = {
     profile: ProfileType
     endEditMode: () => void
 }
-type UsersFormType = {
-    fullName: string
-    aboutMe: string
-    lookingForAJob: string
-    lookingForAJobDescription: string
-    contacts: {
-        [key: string]: string
-    }
-}
-type UsersFormKeysType = Extract<keyof UsersFormType, string>
+type UsersFormKeysType = GetStringKeys<ProfileType>
+
 const ProfileUsersInfoForm: React.FC<InjectedFormProps<ProfileType, ProfileUsersFormPropsType> & ProfileUsersFormPropsType> = ({profile, handleSubmit, endEditMode, error}) => {
 
     return <form onSubmit={handleSubmit}>
@@ -30,7 +22,7 @@ const ProfileUsersInfoForm: React.FC<InjectedFormProps<ProfileType, ProfileUsers
                 <span>{error}</span>
             </div>
             <div>
-                <b>Full name: {fieldComponent<UsersFormKeysType>(Input, 'fullName', 'fullName', [], undefined, undefined)}</b>
+                <b>Full name: {fieldComponent<UsersFormKeysType>(Input, 'fullName', 'fullName', [required], undefined, undefined)}</b>
             </div>
             <div>
                 <b>About me: {fieldComponent<UsersFormKeysType>(Input, 'aboutMe', 'aboutMe', [], undefined, undefined)}</b>
@@ -55,5 +47,4 @@ const ProfileUsersInfoForm: React.FC<InjectedFormProps<ProfileType, ProfileUsers
 
 
 const ProfileUsersForm = reduxForm<ProfileType, ProfileUsersFormPropsType>({form: 'profile'})(ProfileUsersInfoForm);
-// @ts-ignore
 export default ProfileUsersForm;

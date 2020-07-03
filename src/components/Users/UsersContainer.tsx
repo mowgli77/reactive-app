@@ -13,6 +13,7 @@ import {
 } from "../../redux/usersSelector";
 import {StateType} from "../../redux/reduxStore";
 import {UsersType} from "../../types/types";
+import withRedirect from "../../HOC/withRedirectComponent";
 
 
 type MapStateUsersContainerPropsType = {
@@ -71,7 +72,8 @@ const mapStateToProps = (state: StateType) => {
 }
 const buttonDisable = usersActions.buttonDisable
 
-export default compose(
+export default compose<React.ComponentType>(
+    withRedirect,
     connect<MapStateUsersContainerPropsType, MapDispatchUsersContainerPropsType, {}, StateType>
     (mapStateToProps, {
         follow,

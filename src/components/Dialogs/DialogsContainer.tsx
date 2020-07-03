@@ -36,7 +36,7 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>(mapStateToProps, {onAddMessage, deleteMessage, getAuthPhotosThunk}),
     withRedirect
 )(Dialogs);

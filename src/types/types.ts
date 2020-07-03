@@ -9,14 +9,22 @@ export type PhotosType = {
     small: string | undefined
     large: string | undefined
 }
+export type ContactsType = {
+    github: string | undefined
+    vk: string | undefined
+    facebook: string | undefined
+    instagram: string | undefined
+    twitter: string | undefined
+    website: string | undefined
+    youtube: string | undefined
+    mainLink: string | undefined
+}
 export type ProfileType = {
     fullName: string | null
     aboutMe: string | null
     lookingForAJob: boolean | null
     lookingForAJobDescription: string | null
-    contacts: {
-        [key: string]: string | null
-    }
+    contacts: ContactsType
     photos: PhotosType
     userId: number
 }
@@ -92,6 +100,7 @@ export type ProfilePropsType = {
     updateStatusThunk: (status: string) => void
     addAvatarThunk: (avatarka: File | null) => void
     updateProfileThunk: (profile: ProfileType) => void
+    isOwner: boolean
 }
 export type LoginFormValuesType = {
     email: string

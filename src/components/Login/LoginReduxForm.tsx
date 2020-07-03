@@ -1,6 +1,6 @@
 import {InjectedFormProps, reduxForm} from "redux-form";
 import React from "react";
-import {fieldComponent, Input} from "../common/formsControl";
+import {fieldComponent, GetStringKeys, Input} from "../common/formsControl";
 import {notEmail, required} from "../../utilits/validators/validators";
 import s from "../common/formsControl.module.css";
 import {LoginFormValuesType} from "../../types/types";
@@ -9,7 +9,7 @@ type LoginFormOwnPropsType = {
     captchaURL: string | null
 }
 
-type LoginFormKeysType = Extract<keyof LoginFormValuesType, string>
+type LoginFormKeysType = GetStringKeys<LoginFormValuesType>
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = (props) => {
     let pressKey = (e: React.KeyboardEvent) => {
