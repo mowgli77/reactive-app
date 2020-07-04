@@ -12,13 +12,6 @@ type LoginFormOwnPropsType = {
 type LoginFormKeysType = GetStringKeys<LoginFormValuesType>
 
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = (props) => {
-    let pressKey = (e: React.KeyboardEvent) => {
-        if(e.key === 'Enter') {
-            e.preventDefault();
-            //@ts-ignore
-            props.handleSubmit()
-        }
-    }
 
     return <form onSubmit={props.handleSubmit}>
         {fieldComponent<LoginFormKeysType>(Input,'email', 'email', [required, notEmail], 'email', undefined)}
@@ -32,7 +25,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
             {props.captchaURL && fieldComponent<LoginFormKeysType>(Input, 'captcha', 'Please, enter symbols from the image', [required], undefined, undefined)}
         </div>
         <div>
-            <button onKeyPress={pressKey}>Login</button>
+            <button>Login</button>
         </div>
     </form>
 }

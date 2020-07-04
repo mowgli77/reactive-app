@@ -4,7 +4,7 @@ import set from "./Settings.module.css";
 const Settings = () => {
     return (
         <div className={set.set}>
-            <p>Settings</p>
+            <h2>Unfortunately This Page Is Not Ready Yet...</h2>
         </div>
     )
 }

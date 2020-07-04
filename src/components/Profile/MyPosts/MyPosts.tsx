@@ -10,13 +10,16 @@ export type MyPostsFormValuesType = {
 
 const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
     let postElements =
-        [ ...props.posts]
+        [...props.posts]
             .reverse()
-            .map(p => <Post addLikesCount={props.addLikesCount} deletePost={props.deletePost} message={p.message} likesCount={p.likesCount} id={p.id} key={p.id}/>);
+            .map(p => <Post addLikesCount={props.addLikesCount} deletePost={props.deletePost} message={p.message}
+                            likesCount={p.likesCount} id={p.id} key={p.id}/>);
 
     let addPost = (values: MyPostsFormValuesType) => {
-        props.onAddPost(values.newPostText);
-        props.newPost.values.newPostText = ''
+        if (values.newPostText && values.newPostText.trim().length > 0) {
+            props.onAddPost(values.newPostText);
+            props.newPost.values.newPostText = ''
+        }
     }
 
     return (

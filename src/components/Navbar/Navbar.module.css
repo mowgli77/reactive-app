@@ -46,23 +46,23 @@
     font-weight: bold;
 }
 @media (max-width: 1200px) {
-    .menuBoxActive {
-        display: block;
-        block-size: 90vh;
-        background: url("navbar_back.jpg")no-repeat;
-        background-size: contain;
-        position: fixed;
-        padding: 2rem 1rem;
-    }
     .item {
         width: 125px;
     }
 }
 @media (max-width: 992px) {
+    .menuBox {
+        display: block;
+        block-size: 90vh;
+        background: url("navbar_back1.jpg")no-repeat;
+        background-size: contain;
+        position: fixed;
+        padding: 2rem 1rem;
+    }
     .menuBoxActive {
         display: block;
         block-size: 90vh;
-        background: url("navbar_back.jpg")no-repeat;
+        background: url("navbar_back1.jpg")no-repeat;
         background-size: contain;
         position: fixed;
         padding: 2rem 1rem;
@@ -96,6 +96,7 @@
         block-size: 90vh;
         padding: 2rem 1rem;
         position: absolute;
+        transition: 0.5s;
     }
     .item {
         display: block;

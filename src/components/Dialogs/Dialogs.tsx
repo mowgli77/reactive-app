@@ -35,7 +35,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
 
     let addMessage = (values: DialogsFormValuesType) => {
-        if (values.message.trim().length > 0) {
+        if (values.message && values.message.trim().length > 0) {
             props.onAddMessage(values.message);
             props.dialog.values.message = ''
         }

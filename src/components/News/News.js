@@ -4,7 +4,7 @@ import news from "./News.module.css";
 const News = () => {
     return (
         <div className={news.news}>
-            <p>News</p>
+            <h2>Unfortunately This Page Is Not Ready Yet...</h2>
         </div>
     )
 }
