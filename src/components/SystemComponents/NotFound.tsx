@@ -1,7 +1,7 @@
 import s from "./NotFound.module.css"
 import React from "react";
 
-const Profile = (props) => {
+const Profile: React.FC = () => {
 
     return (
         <div className={s.nf}>

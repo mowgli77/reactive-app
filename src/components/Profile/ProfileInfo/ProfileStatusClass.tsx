@@ -2,10 +2,6 @@ import React from "react";
 import s from "./ProfileStatus.module.css"
 import {StateType} from "../../../redux/reduxStore";
 
-type ProfileStatusClassPropsType = {
-    status: string
-    updateStatusThunk: (status: string) => void
-}
 
 class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType> {
     state = {
@@ -74,3 +70,8 @@ class ProfileStatusClass extends React.Component<ProfileStatusClassPropsType> {
 }
 
 export default ProfileStatusClass;
+
+type ProfileStatusClassPropsType = {
+    status: string
+    updateStatusThunk: (status: string) => void
+}

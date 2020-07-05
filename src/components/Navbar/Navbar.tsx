@@ -4,9 +4,6 @@ import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/reduxStore";
 
-type MapStateNavbarPropsType = {
-    burger: boolean
-}
 
 const Navbar: React.FC<MapStateNavbarPropsType> = (props) => {
     return (
@@ -38,3 +35,7 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export default connect(mapStateToProps, {})(Navbar);
+
+type MapStateNavbarPropsType = {
+    burger: boolean
+}

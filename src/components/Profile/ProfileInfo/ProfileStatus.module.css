@@ -4,30 +4,30 @@
     border-radius: 8px;
     padding: 5px;
     background: whitesmoke;
-    width: 44vw;
-    max-width: 900px;
+    width: 42vw;
+    max-width: 600px;
 }
 
 .status span {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-family: "Bookman Old Style";
     cursor: pointer;
 }
 .status input {
-    width: 43.5vw;
-    height: 35px;
-    border-radius: 8px;
+    width: 35.8vw;
+    height: 25px;
+    border-radius: 6px;
     border: solid darkgrey 1px;
 }
 @media (max-width: 1200px) {
     .status {
-        width: 53.5vw;
+        width: 38.5vw;
     }
 }
 
 @media (max-width: 992px) {
     .status {
-        width: 53.5vw;
+        width: 36vw;
     }
 }
 

@@ -3,10 +3,6 @@ import s from "./formsControl.module.css";
 import {Field, WrappedFieldProps} from "redux-form";
 import {ValidatorsType} from "../../utilits/validators/validators";
 
-type FieldsPropsType = WrappedFieldProps & {
-    label: string | undefined
-    text?: string | undefined
-}
 
 export const Textarea: React.FC<FieldsPropsType> = ({input, meta: {touched, error, warning}, label, ...props}) => {
     return <div>
@@ -46,3 +42,8 @@ export function fieldComponent<T extends string>(component: React.FC<FieldsProps
 }
 
 export type GetStringKeys<T> = Extract<keyof T, string>
+
+type FieldsPropsType = WrappedFieldProps & {
+    label: string | undefined
+    text?: string | undefined
+}

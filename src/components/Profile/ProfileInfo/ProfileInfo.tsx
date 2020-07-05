@@ -2,7 +2,7 @@ import s from './ProfileInfo.module.css';
 import React, {useState} from "react";
 import Preloader from "../../Preloader/Preloader";
 import defaultPhoto from "../../Users/defaultPhoto.jpg";
-import ProfileStatus  from "./ProfileStatusHook";
+import ProfileStatus from "./ProfileStatusHook";
 import ProfileUsersInfo from "./ProfileUsersInfo";
 import ProfileUsersForm from "./ProfileUsersForm";
 import {ProfilePropsType, ProfileType} from "../../../types/types";
@@ -42,8 +42,9 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
     }
     let updateProfileInfo = (values: ProfileType) => {
         //@ts-ignore
-        props.updateProfileThunk(values).then( () => {
-            setEditMode(false)})
+        props.updateProfileThunk(values).then(() => {
+            setEditMode(false)
+        })
     }
 
     return (
@@ -52,11 +53,11 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
                 <div className={s.avatar}>
                     {!props.isOwner ? <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/> :
                         !changeAvatar ? <button onClick={inputAppear} title={'Click on avatar to change it'}>
-                            <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/>
-                        </button>
-                        :
-                        <img src={profile.photos.large}/>
-                     }
+                                <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/>
+                            </button>
+                            :
+                            <img src={profile.photos.large}/>
+                    }
                     {changeAvatar && <div>
                         <input type={'file'} onChange={goSetIsSave} autoFocus={true}/>
                     </div>}
@@ -67,20 +68,25 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
                                 <button onClick={addingNewAvatar} disabled={!newPhoto}>Save new avatar</button>
                             </div>}
                     </div>}
-                    <div>
-                        <ProfileStatus updateStatusThunk={props.updateStatusThunk} status={props.status}/>
-                    </div>
-                    {!editMode ?
-                        <ProfileUsersInfo profile={profile} startEditMode={startEditMode} isOwner={props.isOwner} />
-                        :
-                        <ProfileUsersForm profile={profile} initialValues={profile} onSubmit={updateProfileInfo} endEditMode={endEditMode} />
-                    }
                 </div>
+            </div>
+            <div className={s.pinfo}>
+                <div className={s.name}>
+                    {profile.fullName}
+                </div>
+                <div>
+                    <ProfileStatus updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                </div>
+                {!editMode ?
+                    <ProfileUsersInfo profile={profile} startEditMode={startEditMode} isOwner={props.isOwner}/>
+                    :
+                    <ProfileUsersForm profile={profile} initialValues={profile} onSubmit={updateProfileInfo}
+                                      endEditMode={endEditMode}/>
+                }
             </div>
         </div>
     )
 }
-
 
 
 export default ProfileInfo;

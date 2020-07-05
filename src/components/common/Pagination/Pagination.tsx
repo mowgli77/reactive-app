@@ -1,13 +1,6 @@
 import s from "./Pagination.module.css";
 import React, {useState} from "react";
 
-type PropsType = {
-    portionSize: number
-    totalItemsCount: number
-    pageSize: number
-    currentPage: number
-    onChangedPage: (p: number) => void
-}
 
 export const Pagination: React.FC<PropsType> = React.memo(({portionSize, ...props}) => {
 
@@ -37,3 +30,11 @@ export const Pagination: React.FC<PropsType> = React.memo(({portionSize, ...prop
                 </button>}
     </div>
 })
+
+type PropsType = {
+    portionSize: number
+    totalItemsCount: number
+    pageSize: number
+    currentPage: number
+    onChangedPage: (p: number) => void
+}

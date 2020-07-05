@@ -10,7 +10,6 @@
 
 .names {
     grid-area: n;
-    color: saddlebrown;
     background: dimgrey;
     font-size: 15pt;
     padding-top: 15px;
@@ -37,7 +36,6 @@
 .bot {
     grid-area: t;
     display: grid;
-    color: coral;
     justify-items: center;
     padding-top: 1rem;
 }
@@ -100,9 +98,38 @@ i.medium {
 i.large {
     font-size: 6rem;
 }
+@media (max-width: 1200px) {
 
-/*.bot textarea {*/
-/*    width: 650px;*/
-/*    height: 60px;*/
-/*    border-radius: 2px;*/
-/*}*/
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 767px) {
+    .dialogs {
+        display: grid;
+        grid-template-rows: 70px 1fr 120px;
+        grid-template-columns: 1fr;
+        grid-template-areas: "n" "m" "t";
+        min-height: 88vh;
+    }
+    .names {
+        grid-area: n;
+        display: grid;
+        grid-template-columns: repeat(5, 16vw);
+        grid-template-rows: minmax(60px, auto);
+        justify-items: center;
+        align-items: center;
+        background: dimgrey;
+        padding-left: 10vw;
+        font-size: 0;
+        padding-top: 0;
+    }
+    .bot {
+        grid-area: t;
+        display: grid;
+        justify-items: center;
+        padding-top: 0;
+    }
+}

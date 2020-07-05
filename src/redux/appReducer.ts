@@ -24,7 +24,7 @@ let appReducer = (state = initialState, action: AppActionTypes): InitialStateTyp
 }
 
 type AppActionTypes = InferActionsType<typeof appActions>
-type AppThunkType = BaseThunkType<AppActionTypes | AuthActionTypes>
+
 export const appActions = {
     initalizating: () => ({type: INITIALIZING_SUCCESS} as const)
 }

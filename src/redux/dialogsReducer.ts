@@ -17,7 +17,7 @@ let initialState = {
     ] as Array<DialogsItemsType>,
     messagesItems: [
         {id: 1, message: 'Yo, man!!!'},
-        {id: 2, message: 'Hi, dune!!!'},
+        {id: 2, message: 'Hi, dude!!!'},
         {id: 3, message: 'What`s up?!'}
     ] as Array<MessagesItemsType>,
     textNewMessage: '',

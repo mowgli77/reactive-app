@@ -29,7 +29,7 @@ const Post: React.FC<PostPropsType> = (props) => {
             </span>
             <div className={post.delete}>
 
-                <button onClick={() => props.deletePost(props.id)}><strong>Delete post &nbsp;</strong>
+                <button onClick={() => props.deletePost(props.id)}><strong>Delete &nbsp;</strong>
                     <i className={`${post.tiny} material-icons`}>delete</i></button>
             </div>
         </div>

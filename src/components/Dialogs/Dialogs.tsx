@@ -6,23 +6,6 @@ import {AddMessageForm} from "./Message/AddMessageForm";
 import {DialogsItemsType, MessagesItemsType, PhotosType} from "../../types/types";
 import {FormState} from "redux-form";
 
-type DialogsPropsType = {
-    dialogsItems: Array<DialogsItemsType>
-    messagesItems: Array<MessagesItemsType>
-    onAddMessage: (message: string) => void
-    dialog: DialogsFormState
-    deleteMessage: (id: number) => void
-    getAuthPhotosThunk: (userId: number) => void
-    userId: number
-    photos: PhotosType
-}
-
-interface DialogsFormState extends FormState {
-    values: {message: string}
-}
-export type DialogsFormValuesType = {
-        message: string
-}
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
@@ -58,3 +41,20 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
 export default Dialogs;
 
+type DialogsPropsType = {
+    dialogsItems: Array<DialogsItemsType>
+    messagesItems: Array<MessagesItemsType>
+    onAddMessage: (message: string) => void
+    dialog: DialogsFormState
+    deleteMessage: (id: number) => void
+    getAuthPhotosThunk: (userId: number) => void
+    userId: number
+    photos: PhotosType
+}
+
+interface DialogsFormState extends FormState {
+    values: {message: string}
+}
+export type DialogsFormValuesType = {
+    message: string
+}

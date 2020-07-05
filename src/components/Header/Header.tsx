@@ -3,14 +3,6 @@ import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import samuraiLogo from "./samuraiLogo.jpg"
 
-type PropsType = {
-    isAuth: boolean
-    login: string | null
-    logoutThunk: () => void
-    setBurger: () => void
-    burger: boolean
-}
-
 
 const Header: React.FC<PropsType> = (props) => {
 
@@ -40,3 +32,11 @@ const Header: React.FC<PropsType> = (props) => {
 };
 
 export default Header;
+
+type PropsType = {
+    isAuth: boolean
+    login: string | null
+    logoutThunk: () => void
+    setBurger: () => void
+    burger: boolean
+}

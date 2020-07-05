@@ -5,12 +5,6 @@ import {notEmail, required} from "../../utilits/validators/validators";
 import s from "../common/formsControl.module.css";
 import {LoginFormValuesType} from "../../types/types";
 
-type LoginFormOwnPropsType = {
-    captchaURL: string | null
-}
-
-type LoginFormKeysType = GetStringKeys<LoginFormValuesType>
-
 const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPropsType> & LoginFormOwnPropsType> = (props) => {
 
     return <form onSubmit={props.handleSubmit}>
@@ -31,3 +25,10 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnPro
 }
 
 export default reduxForm<LoginFormValuesType, LoginFormOwnPropsType>({form: 'login'})(LoginForm);
+
+
+type LoginFormOwnPropsType = {
+    captchaURL: string | null
+}
+
+type LoginFormKeysType = GetStringKeys<LoginFormValuesType>

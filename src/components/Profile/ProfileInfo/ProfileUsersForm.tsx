@@ -5,18 +5,12 @@ import {fieldComponent, GetStringKeys, Input} from "../../common/formsControl";
 import {required} from "../../../utilits/validators/validators";
 import {ProfileType} from "../../../types/types";
 
-type ProfileUsersFormPropsType = {
-    profile: ProfileType
-    endEditMode: () => void
-}
+
 type UsersFormKeysType = GetStringKeys<ProfileType>
 
 const ProfileUsersInfoForm: React.FC<InjectedFormProps<ProfileType, ProfileUsersFormPropsType> & ProfileUsersFormPropsType> = ({profile, handleSubmit, endEditMode, error}) => {
 
     return <form onSubmit={handleSubmit}>
-        <div>
-            <button>Save changes</button><button onClick={endEditMode}>Don`t change</button>
-        </div>
         <div className={ error && s.err}>
             <div >
                 <span>{error}</span>
@@ -42,9 +36,17 @@ const ProfileUsersInfoForm: React.FC<InjectedFormProps<ProfileType, ProfileUsers
                 })}
             </div>
         </div>
+        <div>
+            <button>Save changes</button><button onClick={endEditMode}>Don`t change</button>
+        </div>
     </form>
 }
 
 
 const ProfileUsersForm = reduxForm<ProfileType, ProfileUsersFormPropsType>({form: 'profile'})(ProfileUsersInfoForm);
 export default ProfileUsersForm;
+
+type ProfileUsersFormPropsType = {
+    profile: ProfileType
+    endEditMode: () => void
+}

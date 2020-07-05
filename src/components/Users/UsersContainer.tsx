@@ -16,22 +16,6 @@ import {UsersType} from "../../types/types";
 import withRedirect from "../../HOC/withRedirectComponent";
 
 
-type MapStateUsersContainerPropsType = {
-    users: UsersType[]
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
-    followProcessing: number[]
-}
-type MapDispatchUsersContainerPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    buttonDisable: (followProcessing: boolean, userId: number) => void
-    requestUsersThunk: (currentPage: number, pageSize: number) => void
-}
-type UserContainerPropsType = MapStateUsersContainerPropsType & MapDispatchUsersContainerPropsType
-
 class UsersComponentContainer extends React.Component<UserContainerPropsType> {
 
     componentDidMount() {
@@ -82,3 +66,19 @@ export default compose<React.ComponentType>(
         requestUsersThunk,
     })
 )(UsersComponentContainer)
+
+type MapStateUsersContainerPropsType = {
+    users: UsersType[]
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    isFetching: boolean
+    followProcessing: number[]
+}
+type MapDispatchUsersContainerPropsType = {
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    buttonDisable: (followProcessing: boolean, userId: number) => void
+    requestUsersThunk: (currentPage: number, pageSize: number) => void
+}
+type UserContainerPropsType = MapStateUsersContainerPropsType & MapDispatchUsersContainerPropsType

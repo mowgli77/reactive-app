@@ -4,18 +4,6 @@ import {connect} from "react-redux";
 import {logoutThunk, reducerActions} from "../../redux/authReducer";
 import {StateType} from "../../redux/reduxStore";
 
-type MapStatePropsType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    burger: boolean
-}
-
-type MapDispatchPropsType = {
-    logoutThunk: () => void
-    setBurger: () => void
-}
 
 class HeaderContainer extends React.Component<MapStatePropsType & MapDispatchPropsType> {
     componentDidMount() {
@@ -40,3 +28,16 @@ let mapStateToProps = (state: StateType) => {
 }
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>(mapStateToProps, {logoutThunk, setBurger})(HeaderContainer);
+
+type MapStatePropsType = {
+    userId: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    burger: boolean
+}
+
+type MapDispatchPropsType = {
+    logoutThunk: () => void
+    setBurger: () => void
+}

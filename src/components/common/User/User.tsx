@@ -4,13 +4,6 @@ import s from "../../Users/Users.module.css";
 import React from "react";
 import {UsersType} from "../../../types/types";
 
-type UserPropsType = {
-    user: UsersType
-    followProcessing: number[]
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-}
-
 export const User: React.FC<UserPropsType> = ({user, ...props}) => {
     return <div className={s.userBlock}>
         <NavLink className={s.userPhoto} to={'/profile/' + user.id}>
@@ -34,4 +27,11 @@ export const User: React.FC<UserPropsType> = ({user, ...props}) => {
                     Follow</button>}
         </div>
     </div>
+}
+
+type UserPropsType = {
+    user: UsersType
+    followProcessing: number[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }

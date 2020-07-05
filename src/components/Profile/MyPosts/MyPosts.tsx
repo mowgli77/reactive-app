@@ -4,9 +4,6 @@ import Post from "./Post/Post";
 import {NewPostForm} from "./NewPostForm";
 import {MyPostsPropsType} from "../../../types/types";
 
-export type MyPostsFormValuesType = {
-    newPostText: string
-}
 
 const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
     let postElements =
@@ -35,3 +32,7 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
 })
 
 export default MyPosts;
+
+export type MyPostsFormValuesType = {
+    newPostText: string
+}

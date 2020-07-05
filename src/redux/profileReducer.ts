@@ -15,7 +15,7 @@ let initialState = {
     posts: [
         {id: 1, message: 'Where is my car, dune?!', likesCount: 13},
         {id: 2, message: 'Here is it', likesCount: 69},
-        {id: 3, message: 'Fuck!!!', likesCount: 77}
+        {id: 3, message: 'Lucky!!!', likesCount: 77}
     ] as PostsType[],
     profile: null as ProfileType | null,
     status: ''

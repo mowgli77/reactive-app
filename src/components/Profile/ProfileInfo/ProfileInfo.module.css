@@ -1,8 +1,16 @@
-.ava {
+.content {
+    display: grid;
+    grid-template-columns: 2fr 6fr;
+    grid-template-rows: minmax(300px, auto);
+    grid-gap: 1rem;
     padding: 20px;
 }
+.ava {
+    grid-column: 1;
+    grid-column: 1;
+}
 .ava img {
-    width: 275px;
+    width: 230px;
 }
 .avatar button {
     cursor: pointer;
@@ -14,9 +22,55 @@
 }
 
 .err input {
-    border: solid red 4px;
+    border: solid red 2px;
 }
 .err span {
     font-size: 25px;
     color: red;
+}
+.pinfo {
+    grid-column: 2;
+    grid-row: 1;
+}
+.pinfo button {
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.name {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+@media (max-width: 1200px) {
+    .content {
+        max-width: 715px;
+    }
+}
+
+@media (max-width: 992px) {
+    .content {
+        max-width: 550px;
+    }
+    .ava img {
+        width: 165px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .content {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(200px, auto);
+        grid-gap: 1rem;
+        padding: 20px;
+    }
+    .ava {
+        grid-column: 1;
+        grid-column: 1;
+    }
+    .pinfo {
+        grid-column: 1;
+        grid-row: 2;
+    }
 }

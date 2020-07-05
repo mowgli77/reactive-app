@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from "react";
 import s from "./ProfileStatus.module.css"
 
-type ProfileStatusPropsType = {
-    status: string
-    updateStatusThunk: (status: string) => void
-}
 
 const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
 
@@ -41,7 +37,7 @@ const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
     return <div>
         {!editMode &&
         <div className={s.status}>
-            <span onClick={onEditStatus}>{props.status || 'No status'}</span>
+            <span onClick={onEditStatus} title={'Click on status to change it'}>{props.status || 'No status'}</span>
         </div>}
         {editMode &&
         <div className={s.status}>
@@ -55,3 +51,8 @@ const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
 }
 
 export default ProfileStatusHook;
+
+type ProfileStatusPropsType = {
+    status: string
+    updateStatusThunk: (status: string) => void
+}

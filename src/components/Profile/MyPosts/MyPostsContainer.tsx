@@ -5,17 +5,6 @@ import {connect} from "react-redux";
 import {PostsType} from "../../../types/types";
 import {StateType} from "../../../redux/reduxStore";
 
-type MapStatePropsType = {
-    posts: PostsType[]
-    newPost: any
-}
-type MapDispatchPropsType = {
-    addLikesCount: (id: number) => void
-    deletePost: (id: number) => void
-    onAddPost: (newPostText: string) => void
-}
-
-
 const mapStateToProps = (state: StateType) => {
     return {
         posts: state.profilePage.posts,
@@ -29,3 +18,14 @@ const onAddPost = profileActions.onAddPost
 const MyPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>
 (mapStateToProps, {onAddPost, deletePost, addLikesCount})(MyPosts)
 export default MyPostsContainer;
+
+type MapStatePropsType = {
+    posts: PostsType[]
+    newPost: any
+}
+type MapDispatchPropsType = {
+    addLikesCount: (id: number) => void
+    deletePost: (id: number) => void
+    onAddPost: (newPostText: string) => void
+}
+
