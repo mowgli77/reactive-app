@@ -7,6 +7,7 @@ import {LoginFormValuesType, ResultCodeCaptchaEnum, ResultCodeEnum} from "../typ
 const SET_USER_AUTH = 'SET_USER_AUTH';
 const GET_CAPTCHA_URL = 'GET_CAPTCHA_URL';
 const SET_BURGER = 'SET_BURGER';
+const END_BURGER = 'END_BURGER';
 
 let initialState = {
     userId: null as number | null,
@@ -37,6 +38,11 @@ let authReducer = (state = initialState, action: AuthActionTypes): InitialStateT
                 ...state,
                 burger: !state.burger
             }
+        case END_BURGER:
+            return {
+                ...state,
+                burger: false
+            }
         default:
             return state;
     }
@@ -50,7 +56,8 @@ export const reducerActions = {
         type: SET_USER_AUTH,
         payload: {userId, login, email, isAuth}} as const),
     setCaptcha: (captchaURL: string) => ({type: GET_CAPTCHA_URL, payload: {captchaURL}} as const),
-    setBurger: () => ({type: SET_BURGER} as const)
+    setBurger: () => ({type: SET_BURGER} as const),
+    endBurger: () => ({type: END_BURGER} as const)
 }
 
 export const setUserAuthThunk = (): AuthThunkType => async (dispatch) => {

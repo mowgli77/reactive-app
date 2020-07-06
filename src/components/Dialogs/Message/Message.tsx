@@ -3,13 +3,6 @@ import React from "react";
 import defaultPhoto from "../../Users/defaultPhoto.jpg"
 import {PhotosType} from "../../../types/types";
 
-type MessagesPropsType = {
-    message: string
-    deleteMessage: (id: number) => void
-    id: number
-    photos: PhotosType
-
-}
 
 const Message: React.FC<MessagesPropsType> = (props) => {
     return (
@@ -26,3 +19,11 @@ const Message: React.FC<MessagesPropsType> = (props) => {
 }
 
 export default Message;
+
+type MessagesPropsType = {
+    message: string
+    deleteMessage: (id: number) => void
+    id: number
+    photos: PhotosType
+
+}
