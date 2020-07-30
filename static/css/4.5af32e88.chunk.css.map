@@ -1,0 +1,1 @@
+{"version":3,"sources":["Login.module.css"],"names":[],"mappings":"AAAA,oBACI,gBAAiB,CACjB,iBACJ,CACA,2BACI,oBAAqB,CACrB,eAAiB,CACjB,eACJ","file":"4.5af32e88.chunk.css","sourcesContent":[".login {\r\n    padding-top: 5rem;\r\n    padding-left: 8rem;\r\n}\r\n.login button {\r\n    text-decoration: none;\r\n    font-size: 0.9rem;\r\n    font-weight: bold;\r\n}\r\n"]}
