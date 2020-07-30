@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/reactive-app/static/css/main.51f43efd.chunk.css",
+    "main.css": "/reactive-app/static/css/main.c62e94d1.chunk.css",
     "main.js": "/reactive-app/static/js/main.e88346e7.chunk.js",
     "main.js.map": "/reactive-app/static/js/main.e88346e7.chunk.js.map",
     "runtime-main.js": "/reactive-app/static/js/runtime-main.dbb05468.js",
@@ -16,11 +16,11 @@
     "static/js/5.0b868f29.chunk.js": "/reactive-app/static/js/5.0b868f29.chunk.js",
     "static/js/5.0b868f29.chunk.js.map": "/reactive-app/static/js/5.0b868f29.chunk.js.map",
     "index.html": "/reactive-app/index.html",
-    "precache-manifest.e9d2f647f12ce4a0952088c40cfa1d50.js": "/reactive-app/precache-manifest.e9d2f647f12ce4a0952088c40cfa1d50.js",
+    "precache-manifest.a9abc0fb177ecf43b1ded5f57ead8929.js": "/reactive-app/precache-manifest.a9abc0fb177ecf43b1ded5f57ead8929.js",
     "service-worker.js": "/reactive-app/service-worker.js",
     "static/css/3.2a5a3c5d.chunk.css.map": "/reactive-app/static/css/3.2a5a3c5d.chunk.css.map",
     "static/css/4.5af32e88.chunk.css.map": "/reactive-app/static/css/4.5af32e88.chunk.css.map",
-    "static/css/main.51f43efd.chunk.css.map": "/reactive-app/static/css/main.51f43efd.chunk.css.map",
+    "static/css/main.c62e94d1.chunk.css.map": "/reactive-app/static/css/main.c62e94d1.chunk.css.map",
     "static/js/2.2b44523b.chunk.js.LICENSE.txt": "/reactive-app/static/js/2.2b44523b.chunk.js.LICENSE.txt",
     "static/media/Navbar.module.css": "/reactive-app/static/media/navbar_burger.3dc197cf.jpg",
     "static/media/preloader.gif": "/reactive-app/static/media/preloader.ee00fd36.gif",
@@ -30,7 +30,7 @@
   "entrypoints": [
     "static/js/runtime-main.dbb05468.js",
     "static/js/2.2b44523b.chunk.js",
-    "static/css/main.51f43efd.chunk.css",
+    "static/css/main.c62e94d1.chunk.css",
     "static/js/main.e88346e7.chunk.js"
   ]
 }
