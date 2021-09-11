@@ -1,84 +1,64 @@
-import React from "react";
-import Users from "./Users";
-import {connect} from "react-redux";
-import {follow, requestUsersThunk, unfollow, usersActions} from "../../redux/usersReducer";
-import {compose} from "redux";
-import {
-    getCurrentPage,
-    getFollowProcessing,
-    getIsFetchinge,
-    getPageSize,
-    getTotalUsersCount,
-    getUsersSelector,
-} from "../../redux/usersSelector";
-import {StateType} from "../../redux/reduxStore";
-import {UsersType} from "../../types/types";
-import withRedirect from "../../HOC/withRedirectComponent";
+import React, {useEffect} from "react";
+import {Users} from "./Users";
+import {requestUsersThunk} from "../../redux/usersReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentPage, getFilter, getPageSize} from "../../redux/usersSelector";
+import { useHistory } from "react-router-dom";
+import * as queryString from "querystring";
 
 
-class UsersComponentContainer extends React.Component<UserContainerPropsType> {
+const UsersContainer: React.FC = () => {
 
-    componentDidMount() {
-        this.props.requestUsersThunk(this.props.currentPage, this.props.pageSize);
-    }
+    const pageSize = useSelector(getPageSize)
+    const currentPage = useSelector(getCurrentPage)
+    const filter = useSelector(getFilter)
+    const { term, friend } = filter
 
-    onChangedPage = (currentPage: number): void => {
-        this.props.requestUsersThunk(currentPage, this.props.pageSize);
-    }
+    const dispatch = useDispatch()
+    const history = useHistory()
 
-    render() {
-        return <>
-            <Users totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   onChangedPage={this.onChangedPage}
-                   users={this.props.users}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
-                   currentPage={this.props.currentPage}
-                   followProcessing={this.props.followProcessing}
-                   buttonDisable={this.props.buttonDisable}
-                   isFetching={this.props.isFetching}
-            />
-        </>
-    }
+    useEffect(() => {
+
+        let actualPage = currentPage
+        let actualFilter = filter
+
+        const parsed = queryString.parse(history.location.search.substr(1))
+        const { term, friend, page } = parsed
+        if (!!page) actualPage = Number(page)
+        if (!!term) actualFilter.term = term as string
+        if (!!friend) {
+            switch (friend) {
+                case 'null' :
+                    actualFilter = { ...actualFilter, friend: null }
+                    break
+                case 'true' :
+                    actualFilter = { ...actualFilter, friend: true}
+                    break
+                case 'false' :
+                    actualFilter = { ...actualFilter, friend: false}
+            }
+        }
+
+        dispatch(requestUsersThunk(actualPage, pageSize, actualFilter))
+    }, [])
+
+    useEffect(() => {
+
+        const query: any = {}
+        if (!!term) query.term = term
+        if (friend !== null) query.friend = String(friend)
+        if (currentPage !== 1) query.page = String(currentPage)
+        const stringified = queryString.stringify(query)
+
+        history.push({
+            pathname: '/developers',
+            search: stringified
+        })
+    }, [filter, currentPage])
+
+    return <>
+        <Users />
+    </>
 }
 
-
-const mapStateToProps = (state: StateType) => {
-    return {
-        users: getUsersSelector(state),
-        totalUsersCount: getTotalUsersCount(state),
-        pageSize: getPageSize(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetchinge(state),
-        followProcessing: getFollowProcessing(state),
-    }
-}
-const buttonDisable = usersActions.buttonDisable
-
-export default compose<React.ComponentType>(
-    withRedirect,
-    connect<MapStateUsersContainerPropsType, MapDispatchUsersContainerPropsType, {}, StateType>
-    (mapStateToProps, {
-        follow,
-        unfollow,
-        buttonDisable,
-        requestUsersThunk,
-    })
-)(UsersComponentContainer)
-
-type MapStateUsersContainerPropsType = {
-    users: UsersType[]
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    isFetching: boolean
-    followProcessing: number[]
-}
-type MapDispatchUsersContainerPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    buttonDisable: (followProcessing: boolean, userId: number) => void
-    requestUsersThunk: (currentPage: number, pageSize: number) => void
-}
-type UserContainerPropsType = MapStateUsersContainerPropsType & MapDispatchUsersContainerPropsType
+export default UsersContainer

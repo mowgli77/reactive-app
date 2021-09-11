@@ -1,4 +1,5 @@
-import profileReducer, {addPostCreateAction, deletePostAC} from "./profileReducer";
+import profileReducer, {profileActions} from "./profileReducer";
+const {addPostCreateAction, deletePostAC} = profileActions;
 
 let state = {
     posts: [
@@ -29,5 +30,5 @@ test('ID test', () => {
 test('Add posts test', () => {
     let action = addPostCreateAction('fuck off!!!');
     let newState = profileReducer(state, action);
-    expect(newState.posts[3].message).toBe('хуй там тест пройдеш');
+    expect(newState.posts[3].message).toBe('fuck off!!!');
 });

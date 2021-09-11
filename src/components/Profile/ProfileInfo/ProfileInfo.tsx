@@ -5,14 +5,21 @@ import defaultPhoto from "../../Users/defaultPhoto.jpg";
 import ProfileStatus from "./ProfileStatusHook";
 import ProfileUsersInfo from "./ProfileUsersInfo";
 import ProfileUsersForm from "./ProfileUsersForm";
-import {ProfilePropsType, ProfileType} from "../../../types/types";
+import {ProfileType} from "../../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getOwnerSelector, getProfileSelector} from "../../../redux/profileSelectors";
+import {addAvatarThunk, updateProfileThunk} from "../../../redux/profileReducer";
 
 
-const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
+const ProfileInfo: React.FC = () => {
 
     let [changeAvatar, setChangeAvatar] = useState(false);
     let [newPhoto, setIsSave] = useState<File | null>(null);
     let [editMode, setEditMode] = useState(false);
+
+    const profile = useSelector(getProfileSelector)
+    const isOwner = useSelector(getOwnerSelector)
+    const dispatch = useDispatch()
 
     if (!profile) {
         return <Preloader/>
@@ -20,11 +27,11 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
     let goSetIsSave = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             setIsSave(e.target.files[0]);
-            props.addAvatarThunk(e.target.files[0]);
+            dispatch(addAvatarThunk(e.target.files[0]));
         }
     }
     let addingNewAvatar = () => {
-        props.addAvatarThunk(newPhoto);
+        dispatch(addAvatarThunk(newPhoto));
         setChangeAvatar(false);
         setIsSave(null);
     }
@@ -42,7 +49,7 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
     }
     let updateProfileInfo = (values: ProfileType) => {
         //@ts-ignore
-        props.updateProfileThunk(values).then(() => {
+        dispatch(updateProfileThunk(values)).then(() => {
             setEditMode(false)
         })
     }
@@ -51,7 +58,7 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
         <div className={s.content}>
             <div className={s.ava}>
                 <div className={s.avatar}>
-                    {!props.isOwner ? <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/> :
+                    {!isOwner ? <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/> :
                         !changeAvatar ? <button onClick={inputAppear} title={'Click on avatar to change it'}>
                                 <img src={profile.photos.large ? profile.photos.large : defaultPhoto}/>
                             </button>
@@ -61,7 +68,7 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
                     {changeAvatar && <div>
                         <input type={'file'} onChange={goSetIsSave} autoFocus={true}/>
                     </div>}
-                    {props.isOwner && <div>
+                    {isOwner && <div>
                         {!changeAvatar ? <button onClick={inputAppear}>Change avatar</button> :
                             <div>
                                 <button onClick={inputHide}>End changing</button>
@@ -75,10 +82,10 @@ const ProfileInfo: React.FC<ProfilePropsType> = ({profile, ...props}) => {
                     {profile.fullName}
                 </div>
                 <div>
-                    <ProfileStatus updateStatusThunk={props.updateStatusThunk} status={props.status}/>
+                    <ProfileStatus />
                 </div>
                 {!editMode ?
-                    <ProfileUsersInfo profile={profile} startEditMode={startEditMode} isOwner={props.isOwner}/>
+                    <ProfileUsersInfo profile={profile} startEditMode={startEditMode} isOwner={isOwner}/>
                     :
                     <ProfileUsersForm profile={profile} initialValues={profile} onSubmit={updateProfileInfo}
                                       endEditMode={endEditMode}/>

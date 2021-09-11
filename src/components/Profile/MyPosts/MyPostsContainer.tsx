@@ -17,6 +17,7 @@ const onAddPost = profileActions.onAddPost
 
 const MyPostsContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, StateType>
 (mapStateToProps, {onAddPost, deletePost, addLikesCount})(MyPosts)
+
 export default MyPostsContainer;
 
 type MapStatePropsType = {

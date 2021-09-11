@@ -13,16 +13,22 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const IS_FETCHING = 'IS_FETCHING';
 const FOLLOW_PROCESSING = 'FOLLOW_PROCESSING';
+const SET_FILTERS = 'SET_FILTERS';
 
 let initialState = {
     users: [] as UsersType[] | null,
-    pageSize: 10,
+    pageSize: 12,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followProcessing: [] as number[]
+    followProcessing: [] as number[],
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 };
 type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 
 let usersReducer = (state = initialState, action: UsersActionType): InitialStateType => {
     switch (action.type) {
@@ -43,15 +49,18 @@ let usersReducer = (state = initialState, action: UsersActionType): InitialState
             }
         case SET_CURRENT_PAGE:
             return {
-                ...state, currentPage: action.currentPage
+                ...state,
+                currentPage: action.currentPage
             }
         case SET_TOTAL_USERS_COUNT:
             return {
-                ...state, totalUsersCount: action.totalUsersCount
+                ...state,
+                totalUsersCount: action.totalUsersCount
             }
         case IS_FETCHING:
             return {
-                ...state, isFetching: action.isFetching
+                ...state,
+                isFetching: action.isFetching
             }
         case FOLLOW_PROCESSING:
             return {
@@ -59,6 +68,11 @@ let usersReducer = (state = initialState, action: UsersActionType): InitialState
                 followProcessing: action.followProcessing
                     ? [...state.followProcessing, action.userId]
                     : state.followProcessing.filter(id => id != action.userId)
+            }
+        case SET_FILTERS:
+            return {
+                ...state,
+                filter: action.filter
             }
 
         default:
@@ -84,14 +98,16 @@ export const usersActions = {
         totalUsersCount
     } as const),
     isFetchingSet: (isFetching: boolean) => ({type: IS_FETCHING, isFetching} as const),
+    setFilters: (filter: FilterType) => ({type: SET_FILTERS, filter} as const),
     buttonDisable: (followProcessing: boolean, userId: number) =>
         ({type: FOLLOW_PROCESSING, followProcessing, userId} as const),
 }
 
-export const requestUsersThunk = (currentPage: number, pageSize: number): UsersThunkTypes => async (dispatch: Dispatch<UsersActionType>) => {
+export const requestUsersThunk = (currentPage: number, pageSize: number, filter: FilterType): UsersThunkTypes => async (dispatch: Dispatch<UsersActionType>) => {
     dispatch(usersActions.setCurrentPage(currentPage));
     dispatch(usersActions.isFetchingSet(true));
-    let data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(usersActions.setFilters(filter));
+    let data = await usersAPI.getUsers(currentPage, pageSize, filter);
     dispatch(usersActions.setUsers(data.items));
     dispatch(usersActions.isFetchingSet(false));
     dispatch(usersActions.setTotalCount(data.totalCount));

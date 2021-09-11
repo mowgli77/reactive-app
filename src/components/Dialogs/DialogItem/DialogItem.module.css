@@ -42,6 +42,7 @@
     .imge {
         grid-column: 1;
         grid-row: 1;
+        justify-self: center;
     }
     .namge {
         grid-column: 1;

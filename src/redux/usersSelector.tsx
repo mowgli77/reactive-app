@@ -1,6 +1,7 @@
 import {createSelector} from "reselect";
 import {StateType} from "./reduxStore";
 import {UsersType} from "../types/types";
+import {FilterType} from "./usersReducer";
 
 const getUsers = (state: StateType): UsersType[] | null => {
     return state.usersPage.users
@@ -29,3 +30,7 @@ export const getIsFetchinge = (state: StateType): boolean => {
 export const getFollowProcessing = (state: StateType): number[] => {
         return state.usersPage.followProcessing
     }
+
+export const getFilter = (state: StateType): FilterType => {
+    return state.usersPage.filter
+}

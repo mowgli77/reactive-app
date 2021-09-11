@@ -1,29 +1,36 @@
 import React, {useEffect, useState} from "react";
 import s from "./ProfileStatus.module.css"
+import {useDispatch, useSelector} from "react-redux";
+import {getStatusSelector} from "../../../redux/profileSelectors";
+import {updateStatusThunk} from "../../../redux/profileReducer";
 
 
-const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
+const ProfileStatusHook: React.FC = () => {
 
-    let [editMode, setEditMode] = useState(false);
-    let [status, setStatus] = useState(props.status);
+    const reduxStatus = useSelector(getStatusSelector)
+
+    const [editMode, setEditMode] = useState(false);
+    const [status, setStatus] = useState(reduxStatus);
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatus(reduxStatus)
+    }, [reduxStatus])
 
     const onEditStatus = () => {
         setEditMode(true)
     }
     const offEditStatus = () => {
         setEditMode(false);
-        props.updateStatusThunk(status);
+        dispatch(updateStatusThunk(status));
     }
     const changeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value);
     }
     const offChanging = () => {
         setEditMode(false)
-        setStatus(props.status)
+        setStatus(reduxStatus)
     }
     const pressKey = (e: React.KeyboardEvent) => {
         if(e.key === 'Enter') {
@@ -37,7 +44,7 @@ const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
     return <div>
         {!editMode &&
         <div className={s.status}>
-            <span onClick={onEditStatus} title={'Click on status to change it'}>{props.status || 'No status'}</span>
+            <span onClick={onEditStatus} title={'Click on status to change it'}>{reduxStatus || 'No status'}</span>
         </div>}
         {editMode &&
         <div className={s.status}>
@@ -51,8 +58,3 @@ const ProfileStatusHook: React.FC<ProfileStatusPropsType> = (props) => {
 }
 
 export default ProfileStatusHook;
-
-type ProfileStatusPropsType = {
-    status: string
-    updateStatusThunk: (status: string) => void
-}

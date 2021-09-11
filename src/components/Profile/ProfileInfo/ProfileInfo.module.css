@@ -36,11 +36,13 @@
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: bold;
+    cursor: pointer;
 }
 .name {
     font-weight: bold;
     font-size: 1.4rem;
 }
+
 @media (max-width: 1200px) {
     .content {
         max-width: 715px;

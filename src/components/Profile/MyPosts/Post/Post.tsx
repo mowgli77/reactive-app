@@ -1,15 +1,21 @@
 import React, {useState} from "react";
 import post from './Post.module.css'
 import {PostPropsType} from "../../../../types/types";
+import {profileActions} from "../../../../redux/profileReducer";
+import {useDispatch} from "react-redux";
 
+const addLikesCount = profileActions.addLikesCount
+const deletePost = profileActions.deletePost
 
 const Post: React.FC<PostPropsType> = (props) => {
 
     const [doNotLikeAgain, setDoNotLikeAgain] = useState(false);
 
+    const dispatch = useDispatch()
+
     const liker = (id: number) => {
         setDoNotLikeAgain(true);
-        props.addLikesCount(id)
+        dispatch(addLikesCount(id))
     }
 
     return (
@@ -29,11 +35,11 @@ const Post: React.FC<PostPropsType> = (props) => {
             </span>
             <div className={post.delete}>
 
-                <button onClick={() => props.deletePost(props.id)}><strong>Delete &nbsp;</strong>
+                <button onClick={() => dispatch(deletePost(props.id))}><strong>Delete &nbsp;</strong>
                     <i className={`${post.tiny} material-icons`}>delete</i></button>
             </div>
         </div>
     )
 }
 
-export default Post;
+export default Post

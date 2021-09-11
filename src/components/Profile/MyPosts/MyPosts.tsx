@@ -2,20 +2,28 @@ import React from "react";
 import mypost from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {NewPostForm} from "./NewPostForm";
-import {MyPostsPropsType} from "../../../types/types";
+import {useDispatch, useSelector} from "react-redux";
+import {getNewPostSelector, getPostsSelector} from "../../../redux/profileSelectors";
+import {profileActions} from "../../../redux/profileReducer";
 
 
-const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
+const onAddPost = profileActions.onAddPost
+
+const MyPosts: React.FC = React.memo(() => {
+    const posts = useSelector(getPostsSelector)
+    const newPost = useSelector(getNewPostSelector)
+    const dispatch = useDispatch()
+
     let postElements =
-        [...props.posts]
+        [...posts]
             .reverse()
-            .map(p => <Post addLikesCount={props.addLikesCount} deletePost={props.deletePost} message={p.message}
+            .map(p => <Post message={p.message}
                             likesCount={p.likesCount} id={p.id} key={p.id}/>);
 
     let addPost = (values: MyPostsFormValuesType) => {
         if (values.newPostText && values.newPostText.trim().length > 0) {
-            props.onAddPost(values.newPostText);
-            props.newPost.values.newPostText = ''
+            dispatch(onAddPost(values.newPostText))
+            newPost.values.newPostText = ''
         }
     }
 
@@ -31,7 +39,7 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
     )
 })
 
-export default MyPosts;
+export default MyPosts
 
 export type MyPostsFormValuesType = {
     newPostText: string

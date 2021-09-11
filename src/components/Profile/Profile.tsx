@@ -1,22 +1,16 @@
 import React from "react";
 import profile from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {ProfilePropsType} from "../../types/types";
+import MyPosts from "./MyPosts/MyPosts";
 
-const Profile: React.FC<ProfilePropsType> = (props) => {
+
+const Profile: React.FC = () => {
 
     return (
         <div className={profile.content}>
-                <ProfileInfo addAvatarThunk={props.addAvatarThunk}
-                             profile={props.profile}
-                             updateStatusThunk={props.updateStatusThunk}
-                             updateProfileThunk={props.updateProfileThunk}
-                             status={props.status}
-                             isOwner={props.isOwner}
-                            />
+                <ProfileInfo />
             <div>
-                <MyPostsContainer />
+                <MyPosts />
             </div>
         </div>
     )

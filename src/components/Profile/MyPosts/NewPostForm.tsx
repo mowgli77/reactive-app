@@ -14,7 +14,7 @@ const NewPostComponent: React.FC<InjectedFormProps<MyPostsFormValuesType>> = (pr
             {fieldComponent<PostFormKeysType>(Textarea,'newPostText', 'Add your post...', [maxLength100], undefined, undefined)}
         </div>
         <div>
-            <button>Add Post</button>
+            <button style={{cursor: 'pointer'}}>Add Post</button>
         </div>
     </form>
 }

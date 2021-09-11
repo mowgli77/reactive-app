@@ -81,10 +81,8 @@ export type DataPhotosType = {
 
 // Component's Types:
 export type PostPropsType = {
-    addLikesCount: (id: number) => void
     message: string
     likesCount: number
-    deletePost: (id: number) => void
     id: number
 }
 export type MyPostsPropsType = {

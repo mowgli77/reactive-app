@@ -9,6 +9,7 @@ const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
 const SET_USERS_STATUS = 'SET_USERS_STATUS';
 const ADD_AVATAR = 'ADD_AVATAR';
 const ADD_LIKE = 'ADD_LIKE';
+const SET_OWNER = 'SET_OWNER';
 
 
 let initialState = {
@@ -18,7 +19,8 @@ let initialState = {
         {id: 3, message: 'Lucky!!!', likesCount: 77}
     ] as PostsType[],
     profile: null as ProfileType | null,
-    status: ''
+    status: '',
+    isOwner: false
 };
 type InitialStateType = typeof initialState
 
@@ -38,6 +40,11 @@ let profileReducer = (state = initialState, action: ProfileActionTypes): Initial
             return {
                 ...state,
                 status: action.status
+            }
+        case SET_OWNER:
+            return {
+                ...state,
+                isOwner: action.isOwner
             }
         case DELETE_POST:
             return {
@@ -77,6 +84,7 @@ export const profileActions = {
     setUsersStatus: (status: string) => ({type: SET_USERS_STATUS, status} as const),
     addAvatarSuccess: (photos: PhotosType) => ({type: ADD_AVATAR, photos} as const),
     addLikesCount: (id: number) => ({type: ADD_LIKE, id} as const),
+    setOwner: (isOwner: boolean) => ({type: SET_OWNER, isOwner} as const),
 }
 export const getProfileThunk = (userId: number): ProfileThunkType => async (dispatch) => {
     let data = await profileAPI.getProfile(userId);

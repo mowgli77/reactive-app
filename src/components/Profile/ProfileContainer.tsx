@@ -1,101 +1,57 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {connect} from "react-redux";
-import {
-    addAvatarThunk,
-    getProfileThunk,
-    getStatusThunk,
-    updateProfileThunk,
-    updateStatusThunk
-} from "../../redux/profileReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfileThunk, getStatusThunk, profileActions} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import withRedirect from "../../HOC/withRedirectComponent";
 import {compose} from "redux";
-import {ProfileType} from "../../types/types";
-import {StateType} from "../../redux/reduxStore";
+import {getUserIdSelector} from "../../redux/authSelectors";
+import { useHistory, useParams } from "react-router-dom";
 
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType> {
-    state = {
-        isOwnerLocal: false
-    }
+const ProfileContainer: React.FC = () => {
 
-    profileRefresher() {
-        let userId = this.props.match.params.userId ? +this.props.match.params.userId : null;
-        if (!userId) {
-            userId = this.props.authUserId
-            if (!userId) {
-                this.props.history.push('/login');
-            }
-        }
-        if (userId) {
-            this.props.getProfileThunk(userId);
-            this.props.getStatusThunk(userId);
-            this.setState({isOwnerLocal: this.isOwnerMethod()})
-        }
-    }
-    isOwnerMethod(){
-        if (!this.props.match.params.userId){
+    const authUserId = useSelector(getUserIdSelector)
+    const setOwner = profileActions.setOwner
+    const history = useHistory()
+    const {userId} = useParams()
+    const dispatch = useDispatch()
+
+    const isOwnerMethod = () => {
+        if (!userId){
             return true;
-        } else if (+this.props.match.params.userId == this.props.authUserId){
+        } else if (+userId == authUserId){
             return true
         } else {
             return false
         }
     }
-    componentDidMount() {
-        this.profileRefresher()
+    const profileRefresher = () => {
+        let id = userId ? +userId : null;
+        if (!id) {
+            id = authUserId
+            if (!id) {
+               history.push('/login');
+            }
+        }
+        if (id) {
+            dispatch(getProfileThunk(id))
+            dispatch(getStatusThunk(id))
+            dispatch(setOwner(isOwnerMethod()))
+        }
     }
+    useEffect(() => {
+        profileRefresher()
+    }, [])
 
-    componentDidUpdate(prevProps: ProfileContainerPropsType, prevState: StateType) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId)
-            this.profileRefresher();
-    }
+    useEffect(() => {
+        profileRefresher()
+    }, [userId])
 
-
-    render() {
-        return <Profile {...this.props}
-                        profile={this.props.profile}
-                        updateStatusThunk={this.props.updateStatusThunk}
-                        status={this.props.status}
-                        addAvatarThunk={this.props.addAvatarThunk}
-                        updateProfileThunk={this.props.updateProfileThunk}
-                        isOwner={this.state.isOwnerLocal}
-
-        />
-    }
+    return <Profile/>
 }
 
-let mapStateToProps = (state: StateType) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authUserId: state.auth.userId
-});
-
 export default compose<React.ComponentType>(
-    connect<MapStateProfileContainerPropsType, MapDispatchProfileContainerPropsType, OwnProfileContainerPropsType, StateType>
-    (mapStateToProps, {getProfileThunk, getStatusThunk, updateStatusThunk, addAvatarThunk, updateProfileThunk}),
     withRouter,
     withRedirect
 )(ProfileContainer);
-
-type OwnProfileContainerPropsType = {
-    history: string[]
-    match: { params: { userId: string | undefined} }
-}
-type MapStateProfileContainerPropsType = {
-    authUserId: number | null
-    profile: ProfileType | null
-    status: string
-}
-type MapDispatchProfileContainerPropsType = {
-    getProfileThunk: (userId: number) => void
-    getStatusThunk: (userId: number) => void
-    updateStatusThunk: (status: string) => void
-    addAvatarThunk: (avatarka: File | null) => void
-    updateProfileThunk: (profile: ProfileType) => void
-}
-type ProfileContainerPropsType =
-    OwnProfileContainerPropsType
-    & MapStateProfileContainerPropsType
-    & MapDispatchProfileContainerPropsType

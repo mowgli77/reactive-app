@@ -13,6 +13,7 @@ export const profileAPI = {
     putAvatar(avatarka: any) {
         const formData = new FormData();
         formData.append("image", avatarka)
+        console.log(formData.values)
         return instance.put<APIResponseType<DataPhotosType>>(`/profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
